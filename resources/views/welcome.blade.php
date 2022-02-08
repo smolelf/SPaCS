@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>UNITEN R&D Portal</title>
+        <title>SPaCS</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -49,7 +49,7 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start mb-6">
                     <h1 class="text-2xl font-black">
-                        UNITEN Reasearch & Development Portal
+                        Security Patrol Clocking System (SPaCS)
                     </h1>
                     {{-- <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
                         <g clip-path="url(#clip0)" fill="#EF3B2D">
@@ -64,17 +64,17 @@
                             <div class="p-6">
                             <div class="flex items-center">
                                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-8 h-8 text-gray-500"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><span class="text-gray-900 dark:text-white">What is UNITEN R&D?</span></div>
+                                <div class="ml-4 text-lg leading-7 font-semibold"><span class="text-gray-900 dark:text-white">What is SPaCS?</span></div>
                             </div>
 
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                    UNITEN R&D Sdn Bhd (URND), is a commercial arm of UNITEN. 
-                                    The main business operation is to manage research and consultancy projects carried out by UNITEN academic staff. 
-                                    URND Portal are created to increase productivity in managing research and consultancy projects.
+                                    SPaCS is a system created for internal use by Human Resource, to monitor the activity carried out by security guard. 
+                                    The main business operation is to manage checkpoints, histories and user details. 
+                                    SPaCS Portal are created to increase productivity in managing the clocked data by the guards, improving the traditional way of clocking system.
                                 </div>
                             </div>
-                        </div>
+                        {{-- </div> --}}
 
                         {{-- <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
                             <div class="flex items-center">
