@@ -3,17 +3,22 @@
         {{-- <x-jet-application-logo class="block h-12 w-auto" /> --}}
         <img src="/img/unitenlogo.png" class="h-12 w-auto" />
         <div class="inline-flex items-center px-4 text-xl">
-            Universiti Tenaga Nasional (UNITEN)
+            Security Patrol Clocking System (SPaCS)
         </div>
     </div>
 
     <div class="mt-8 text-2xl">
-        Welcome to UNITEN Research & Development (UR&D) Portal!
+        Welcome to Security Patrol Clocking System (SPaCS) Portal!
     </div>
 
     <div class="mt-6 text-gray-500">
-        This portal is intended for internal usage. Staffs and administrator able to manage their own projects.
+        This portal is intended for internal usage.
+        {{-- Staffs and administrator able to manage their own projects. --}}
     </div>
+
+    {{-- <div class="mt-6 text-gray-500">
+        Hola mi amigo!
+    </div> --}}
 </div>
 
 <div class="bg-gray-200 bg-opacity-25 grid grid-cols-1 md:grid-cols-2">
