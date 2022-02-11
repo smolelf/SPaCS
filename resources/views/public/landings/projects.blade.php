@@ -43,12 +43,12 @@
                     @if ($cons->proj_stage == '6' AND $cons->proj_status == '5')
                         <td><h1 class=" text-gray-400">Closed</h1></td>
                     @else
-                        <td><a href="/editproj/{{$cons->id}}" class="underline" style="color:rgb(0, 104, 122)">View Detail</a></td>
+                        <td><a href="{{url('/editproj/'.$cons->id)}}" class="underline" style="color:rgb(0, 104, 122)">View Detail</a></td>
                     @endif
                     @if ($cons->proj_stage == '6' AND $cons->proj_status == '5')
                         <td><h1 class=" text-gray-400">Closed</h1></td>
                     @elseif($cons->proj_mem_num > 0)
-                        <td><a href="/editmember/{{$cons->id}}" class="underline" style="color:rgb(0, 104, 122)">Manage Member</a></td>
+                        <td><a href="{{url('/editmember/'.$cons->id)}}" class="underline" style="color:rgb(0, 104, 122)">Manage Member</a></td>
                     @else
                         <td><h1 class=" text-gray-400">No Member</h1></td>
                     @endif
@@ -84,12 +84,12 @@
                     @if ($rsch->proj_stage == '6' AND $rsch->proj_status == '5')
                         <td><h1 class=" text-gray-400">Closed</h1></td>
                     @else
-                        <td><a href="/editproj/{{$rsch->id}}" class="underline" style="color:rgb(0, 104, 122)">View Detail</a></td>
+                        <td><a href="{{url('/editproj/'.$rsch->id)}}" class="underline" style="color:rgb(0, 104, 122)">View Detail</a></td>
                     @endif
                     @if ($rsch->proj_stage == '6' AND $rsch->proj_status == '5')
                         <td><h1 class=" text-gray-400">Closed</h1></td>
                     @elseif($rsch->proj_mem_num > 0)
-                        <td><a href="/editmember/{{$rsch->id}}" class="underline" style="color:rgb(0, 104, 122)">Manage Member</a></td>
+                        <td><a href="{{url('/editmember/'.$rsch->id)}}" class="underline" style="color:rgb(0, 104, 122)">Manage Member</a></td>
                     @else
                         <td><h1 class=" text-gray-400">No Member</h1></td>
                     @endif

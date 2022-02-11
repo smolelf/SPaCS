@@ -32,7 +32,7 @@
                     <td>{{$data['cl_name']}}</td>
                     <td>{{$data['cl_email']}}</td>
                     <td>{{$data['cl_phone_no']}}</td>
-                    <td><a href="/editclient/{{$data['id']}}" class="underline" style="color:rgb(0, 104, 122)">View Details</a></td>
+                    <td><a href="{{url('/editclient/'.$data['id'])}}" class="underline" style="color:rgb(0, 104, 122)">View Details</a></td>
                 </tr>
                 @endforeach
             </table>
