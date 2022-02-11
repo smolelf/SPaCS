@@ -7,7 +7,7 @@
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ url('/') }}">
                         {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
-                        <img src="/img/unitenlogo.png" class="block h-10 w-auto" />
+                        <img src="{{url('/img/unitenlogo.png')}}" class="block h-10 w-auto" />
                     </a>
                 </div>
 
