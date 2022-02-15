@@ -11,7 +11,7 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{-- {{ __('Landing') }} --}}
-        Clients
+        Checkpoints
     </h2>
     <a href="{{url('/addclient')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
         New Client

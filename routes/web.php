@@ -67,12 +67,12 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/updateself', [Controller
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/updateselfpw', [ControllersUser::class, 'updateselfpw']);
 
-//Client Controller
-Route::middleware(['auth:sanctum', 'verified'])->get('/addclient', [ClientController::class, 'list'])->name('client');
+//Checkpoints Controller
+Route::middleware(['auth:sanctum', 'verified'])->get('/addclient', [ClientController::class, 'list'])->name('checkpoint');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/clientadd', [ClientController::class, 'add']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/editclient/{id}', [ClientController::class, 'view'])->name('client');
+Route::middleware(['auth:sanctum', 'verified'])->get('/editclient/{id}', [ClientController::class, 'view'])->name('checkpoint');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/updateclient', [ClientController::class, 'update']);
 
@@ -83,6 +83,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/project', [Controller::cl
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/user', [Controller::class, 'user'])->name('user');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/client', [Controller::class, 'client'])->name('client');
+Route::middleware(['auth:sanctum', 'verified'])->get('/client', [Controller::class, 'client'])->name('checkpoint');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/landing', [Controller::class, 'landing'])->name('landing');
+
+// //Client Controller
+// Route::middleware(['auth:sanctum', 'verified'])->get('/addclient', [ClientController::class, 'list'])->name('client');
+
+// Route::middleware(['auth:sanctum', 'verified'])->post('/clientadd', [ClientController::class, 'add']);
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/editclient/{id}', [ClientController::class, 'view'])->name('client');
+
+// Route::middleware(['auth:sanctum', 'verified'])->post('/updateclient', [ClientController::class, 'update']);
