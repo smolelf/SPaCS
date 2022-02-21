@@ -11,10 +11,10 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{-- {{ __('Landing') }} --}}
-        Clients
+        Checkpoints
     </h2>
-    <a href="{{url('/addclient')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
-        New Client
+    <a href="{{url('/addcheckpoint')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
+        New Checkpoint
     </a>
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
@@ -22,17 +22,15 @@
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-md sm:rounded-lg">
             <table>
                 <tr>
-                    <th>Client Name</th>
-                    <th>Client E-Mail</th>
-                    <th>Client Phone Number</th>
+                    <th>Checkpoint Name</th>
+                    <th>Checkpoint Desc</th>
                     <th>Action</th>
                 </tr>
                 @foreach ($data as $data)
                 <tr>
-                    <td>{{$data['cl_name']}}</td>
-                    <td>{{$data['cl_email']}}</td>
-                    <td>{{$data['cl_phone_no']}}</td>
-                    <td><a href="{{url('/editclient/'.$data['id'])}}" class="underline" style="color:rgb(0, 104, 122)">View Details</a></td>
+                    <td>{{$data->cp_name}}</td>
+                    <td>{{$data->cp_desc}}</td>
+                    <td><a href="{{url('/editcheckpoint/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">View Details</a></td>
                 </tr>
                 @endforeach
             </table>

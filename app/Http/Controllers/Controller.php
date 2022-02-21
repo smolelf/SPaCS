@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Checkpoint;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\User;
@@ -74,5 +75,11 @@ class Controller extends BaseController
         $user = Auth::user();
         $data = Client::where('id', '!=', '1')->orderBy('id')->get();
         return view('public.landings.clients', ['data' => $data]);
+    }
+
+    public function checkpoint(){
+        $user = Auth::user();
+        $data = DB::table('checkpoints')->orderBy('id')->get();
+        return view('public.landings.checkpoints', ['data' => $data]);
     }
 }

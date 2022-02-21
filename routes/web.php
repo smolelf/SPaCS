@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckpointController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProjectController;
@@ -67,14 +68,23 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/updateself', [Controller
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/updateselfpw', [ControllersUser::class, 'updateselfpw']);
 
-//Checkpoints Controller
-Route::middleware(['auth:sanctum', 'verified'])->get('/addclient', [ClientController::class, 'list'])->name('checkpoint');
+//Client Controller
+Route::middleware(['auth:sanctum', 'verified'])->get('/addclient', [ClientController::class, 'list'])->name('client');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/clientadd', [ClientController::class, 'add']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/editclient/{id}', [ClientController::class, 'view'])->name('checkpoint');
+Route::middleware(['auth:sanctum', 'verified'])->get('/editclient/{id}', [ClientController::class, 'view'])->name('client');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/updateclient', [ClientController::class, 'update']);
+
+//Checkpoints Controller
+Route::middleware(['auth:sanctum', 'verified'])->get('/addcheckpoint', [CheckpointController::class, 'list'])->name('checkpoint');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/checkpointadd', [CheckpointController::class, 'add']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/editcheckpoint/{id}', [CheckpointController::class, 'view'])->name('checkpoint');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/updatecheckpoint', [CheckpointController::class, 'update']);
 
 //Navbar Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [Controller::class, 'home'])->name('home');
@@ -83,15 +93,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/project', [Controller::cl
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/user', [Controller::class, 'user'])->name('user');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/client', [Controller::class, 'client'])->name('checkpoint');
+Route::middleware(['auth:sanctum', 'verified'])->get('/client', [Controller::class, 'client'])->name('client');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/checkpoint', [Controller::class, 'checkpoint'])->name('checkpoint');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/landing', [Controller::class, 'landing'])->name('landing');
-
-// //Client Controller
-// Route::middleware(['auth:sanctum', 'verified'])->get('/addclient', [ClientController::class, 'list'])->name('client');
-
-// Route::middleware(['auth:sanctum', 'verified'])->post('/clientadd', [ClientController::class, 'add']);
-
-// Route::middleware(['auth:sanctum', 'verified'])->get('/editclient/{id}', [ClientController::class, 'view'])->name('client');
-
-// Route::middleware(['auth:sanctum', 'verified'])->post('/updateclient', [ClientController::class, 'update']);
