@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Checkpoint;
 use App\Models\Client;
+use App\Models\History;
 use App\Models\Project;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
@@ -63,6 +64,18 @@ class Controller extends BaseController
         }
 
         return view('public.landings.projects', ['cons' => $cons, 'rsch' => $rsch]);
+    }
+
+    public function history(){
+        $user = Auth::user();
+        // $data = History::all();
+        $data = DB::table('histories')
+        ->leftJoin('users','histories.user_id','=','users.id')
+        ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
+        ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
+        ->orderBy('histories.id')
+        ->get();
+        return view('public.landings.histories', ['data' => $data]);
     }
 
     public function user(){

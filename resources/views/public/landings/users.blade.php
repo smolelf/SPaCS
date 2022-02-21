@@ -27,21 +27,21 @@
                     <th>Name</th>
                     <th>Phone Number</th>
                     <th>Department</th>
-                    <th>Project(s) Lead</th>
+                    {{-- <th>Project(s) Lead</th> --}}
                     @if (Auth::user()->usertype == 1)
                     <th colspan="2">Action</th>
                     @endif
                 </tr>
                 @foreach ($data as $data)
                 <div class="hidden">
-                    {{$check = DB::table('projects')->where('leader', '=', $data->id)->get();}}
-                    {{$count = $check->count();}}
+                    {{-- {{$check = DB::table('projects')->where('leader', '=', $data->id)->get();}}
+                    {{$count = $check->count();}} --}}
                 </div>
                 <tr>
                     <td>{{$data['name']}}</td>
                     <td>{{$data['phone_no']}}</td>
                     <td>{{$data['dept']}}</td>
-                    <td>
+                    {{-- <td>
                     @if ($count != '[]')
                         @if ($count > 1)
                             {{$count}} Projects
@@ -51,7 +51,7 @@
                     @else
                         N/A
                     @endif
-                    </td>
+                    </td> --}}
                     @if (Auth::user()->usertype == 1)
                         @if (Auth::user()->id != $data->id)
                             <td><a href="{{url('/edituser/'.$data['id'])}}" class="underline" style="color:rgb(0, 104, 122)">Edit</a></td>
@@ -60,11 +60,11 @@
                         @endif
                     @endif
                     @if (Auth::user()->usertype == 1)
-                        @if ($data['usertype'] == 1 OR $count != '[]')
+                        {{-- @if ($data['usertype'] == 1 OR $count != '[]')
                             <td><h1 class="text-gray-400">Delete</h1></td>
-                        @else
+                        @else --}}
                             <td><a href="{{url('/deluser/'.$data['id'])}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
-                        @endif
+                        {{-- @endif --}}
                     @endif
                 </tr>
                 @endforeach

@@ -42,6 +42,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/editproj/{id}', [ProjectC
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/updateproj', [ProjectController::class, 'update']);
 
+//History Controller
+// Route::middleware(['auth:sanctum', 'verified'])->get('/addproject', [ProjectController::class, 'list'])->name('project');
+
+// Route::middleware(['auth:sanctum', 'verified'])->post('/projadd', [ProjectController::class, 'add']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/edithist/{id}', [ProjectController::class, 'view'])->name('history');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/updatehist', [ProjectController::class, 'update']);
+
 //ProjMember Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/editmember/{id}', [ProjMemberController::class, 'view'])->name('project');
 
@@ -90,6 +99,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/updatecheckpoint', [Chec
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [Controller::class, 'home'])->name('home');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/project', [Controller::class, 'project'])->name('project');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/history', [Controller::class, 'history'])->name('history');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/user', [Controller::class, 'user'])->name('user');
 

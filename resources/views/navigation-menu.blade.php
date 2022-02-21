@@ -19,9 +19,15 @@
                     </x-jet-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('project') }}" :active="request()->routeIs('project')">
                         {{ __('Projects') }}
+                    </x-jet-nav-link>
+                </div> --}}
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('history') }}" :active="request()->routeIs('history')">
+                        {{ __('Histories') }}
                     </x-jet-nav-link>
                 </div>
 
@@ -33,11 +39,11 @@
                 </div>
                 {{-- @endif --}}
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('client') }}" :active="request()->routeIs('client')">
                         {{ __('Clients') }}
                     </x-jet-nav-link>
-                </div>
+                </div> --}}
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('checkpoint') }}" :active="request()->routeIs('checkpoint')">
@@ -198,9 +204,15 @@
             </x-jet-responsive-nav-link>
         </div>
 
-        <div class="pt-2 pb-3 space-y-1">
+        {{-- <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('project') }}" :active="request()->routeIs('project')">
                 {{ __('Projects') }}
+            </x-jet-responsive-nav-link>
+        </div> --}}
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-jet-responsive-nav-link href="{{ route('history') }}" :active="request()->routeIs('history')">
+                {{ __('Histories') }}
             </x-jet-responsive-nav-link>
         </div>
 
@@ -212,11 +224,11 @@
         </div>
         {{-- @endif --}}
 
-        <div class="pt-2 pb-3 space-y-1">
+        {{-- <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('client') }}" :active="request()->routeIs('client')">
                 {{ __('Clients') }}
             </x-jet-responsive-nav-link>
-        </div>
+        </div> --}}
 
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('checkpoint') }}" :active="request()->routeIs('checkpoint')">
