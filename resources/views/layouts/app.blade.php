@@ -33,6 +33,18 @@
                 </header>
             @endif
 
+            <!-- Page Heading(Search) -->
+            @if (isset($searchtitle))
+                <header class="bg-white shadow">
+                    <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
+                        {{ $searchtitle }}
+                    </div>
+                    {{-- <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
+                        {{ $searchcontent }}
+                    </div> --}}
+                </header>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}

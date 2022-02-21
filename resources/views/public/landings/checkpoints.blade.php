@@ -10,12 +10,27 @@
 <x-app-layout>
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{-- {{ __('Landing') }} --}}
-        Checkpoints
+        {{ __('Checkpoints') }}
+        {{-- Checkpoints --}}
     </h2>
     <a href="{{url('/addcheckpoint')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
         New Checkpoint
     </a>
+</x-slot>
+<x-slot name="searchtitle">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{-- {{ __('Checkpoints') }} --}}
+    </h2>
+    <form action="/checkpoint/search" style="margin-bottom: 0px;" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <x-jet-input type="text" name="search" placeholder="Search query" class="form-control"/>
+        <select name="searchby"
+        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
+            <option value="name">Name</option>
+            <option value="desc">Description</option>
+        </select>
+        <x-jet-button type="submit" name="submit" class="py-3">Search</x-jet-button>
+    </form>
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-10">

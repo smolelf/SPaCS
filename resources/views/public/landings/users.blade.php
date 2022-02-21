@@ -19,6 +19,21 @@
     </a>
     @endif
 </x-slot>
+<x-slot name="searchtitle">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{-- {{ __('User') }} --}}
+    </h2>
+    <form action="/user/search" style="margin-bottom: 0px;" method="POST">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <x-jet-input type="text" name="search" placeholder="Search query" class="form-control"/>
+        <select name="searchby"
+        class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
+            <option value="name">Name</option>
+            <option value="dept">Department</option>
+        </select>
+        <x-jet-button type="submit" name="submit" class="py-3">Search</x-jet-button>
+    </form>
+</x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-10">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-md sm:rounded-lg">
@@ -38,9 +53,9 @@
                     {{$count = $check->count();}} --}}
                 </div>
                 <tr>
-                    <td>{{$data['name']}}</td>
-                    <td>{{$data['phone_no']}}</td>
-                    <td>{{$data['dept']}}</td>
+                    <td>{{$data->name}}</td>
+                    <td>{{$data->phone_no}}</td>
+                    <td>{{$data->dept}}</td>
                     {{-- <td>
                     @if ($count != '[]')
                         @if ($count > 1)
@@ -54,7 +69,7 @@
                     </td> --}}
                     @if (Auth::user()->usertype == 1)
                         @if (Auth::user()->id != $data->id)
-                            <td><a href="{{url('/edituser/'.$data['id'])}}" class="underline" style="color:rgb(0, 104, 122)">Edit</a></td>
+                            <td><a href="{{url('/edituser/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Edit</a></td>
                         @else
                             <td><h1 class="text-gray-400">Edit</h1></td>
                         @endif
@@ -63,7 +78,7 @@
                         {{-- @if ($data['usertype'] == 1 OR $count != '[]')
                             <td><h1 class="text-gray-400">Delete</h1></td>
                         @else --}}
-                            <td><a href="{{url('/deluser/'.$data['id'])}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
+                            <td><a href="{{url('/deluser/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
                         {{-- @endif --}}
                     @endif
                 </tr>

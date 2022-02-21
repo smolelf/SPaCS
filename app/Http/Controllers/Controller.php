@@ -11,6 +11,7 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -80,7 +81,7 @@ class Controller extends BaseController
 
     public function user(){
         $user = Auth::user();
-        $data = User::all();
+        $data = DB::table('users')->orderBy('id')->get();
         return view('public.landings.users', ['data' => $data]);
     }
 
@@ -94,5 +95,65 @@ class Controller extends BaseController
         $user = Auth::user();
         $data = DB::table('checkpoints')->orderBy('id')->get();
         return view('public.landings.checkpoints', ['data' => $data]);
+    }
+
+    public function htsearch(Request $req)
+    {
+        $user = Auth::user();
+        $searchby = $req->searchby;
+
+        if($searchby == 'name'){
+            $data = DB::table('histories')
+                ->where('cp_name', 'like', '%'.$req->input('search').'%')
+                ->orderBy('id')
+                ->get();
+            return view('public.landings.histories', ['data' => $data]);
+        }else if($searchby == "desc"){
+            $data = DB::table('histories')
+                ->where('cp_desc', 'like', '%'.$req->input('search').'%')
+                ->orderBy('id')
+                ->get();
+            return view('public.landings.histories', ['data' => $data]);
+        }
+    }
+
+    public function ussearch(Request $req)
+    {
+        $user = Auth::user();
+        $searchby = $req->searchby;
+
+        if($searchby == 'name'){
+            $data = DB::table('users')
+                ->where('name', 'like', '%'.$req->input('search').'%')
+                ->orderBy('id')
+                ->get();
+            return view('public.landings.users', ['data' => $data]);
+        }else if($searchby == "dept"){
+            $data = DB::table('users')
+                ->where('dept', 'like', '%'.$req->input('search').'%')
+                ->orderBy('id')
+                ->get();
+            return view('public.landings.users', ['data' => $data]);
+        }
+    }
+
+    public function cpsearch(Request $req)
+    {
+        $user = Auth::user();
+        $searchby = $req->searchby;
+
+        if($searchby == 'name'){
+            $data = DB::table('checkpoints')
+                ->where('cp_name', 'like', '%'.$req->input('search').'%')
+                ->orderBy('id')
+                ->get();
+            return view('public.landings.checkpoints', ['data' => $data]);
+        }else if($searchby == "desc"){
+            $data = DB::table('checkpoints')
+                ->where('cp_desc', 'like', '%'.$req->input('search').'%')
+                ->orderBy('id')
+                ->get();
+            return view('public.landings.checkpoints', ['data' => $data]);
+        }
     }
 }

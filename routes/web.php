@@ -109,3 +109,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/client', [Controller::cla
 Route::middleware(['auth:sanctum', 'verified'])->get('/checkpoint', [Controller::class, 'checkpoint'])->name('checkpoint');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/landing', [Controller::class, 'landing'])->name('landing');
+
+//Search Function
+Route::middleware(['auth:sanctum', 'verified'])->post('/history/search', [Controller::class, 'htsearch'])->name('htsearch');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/user/search', [Controller::class, 'ussearch'])->name('ussearch');
+
+Route::middleware(['auth:sanctum', 'verified'])->post('/checkpoint/search', [Controller::class, 'cpsearch'])->name('cpsearch');
