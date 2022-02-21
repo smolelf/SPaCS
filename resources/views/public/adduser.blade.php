@@ -5,7 +5,7 @@
             <x-slot name="logo">
                 {{-- <x-jet-authentication-card-logo /> --}}
                 {{-- <img src="/img/spacs.svg" class="block h-20 w-auto" style="height:5rem"/> --}}
-                <img src="{{url('/img/spacs.svg')}}" style="height:13rem"/>
+                <img src="{{url('/img/spacs2.svg')}}" style="height:13rem"/>
             </x-slot>
     
             <x-jet-validation-errors class="mb-4" />
