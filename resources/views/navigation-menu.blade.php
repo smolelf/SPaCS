@@ -7,7 +7,8 @@
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ url('/home') }}">
                         {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
-                        <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" />
+                        {{-- <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" /> --}}
+                        <img src="{{url('/img/spacs.svg')}}" class="block w-auto" style="height: 3.5rem" />
                     </a>
                 </div>
 
