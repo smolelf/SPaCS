@@ -24,7 +24,7 @@
     <body class="antialiased">
         <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
             @auth
-                <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                {{-- <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a> --}}
                 <script type="text/javascript">
                     window.location = "{{ url('/home') }}"
                 </script>
