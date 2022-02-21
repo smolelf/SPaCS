@@ -21,7 +21,7 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{-- {{ __('Checkpoints') }} --}}
     </h2>
-    <form action="/checkpoint/search" style="margin-bottom: 0px;" method="POST">
+    <form action="{{url('/checkpoint/search')}}" style="margin-bottom: 0px;" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <x-jet-input type="text" name="search" placeholder="Search query" class="form-control"/>
         <select name="searchby"
