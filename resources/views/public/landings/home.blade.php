@@ -1,7 +1,7 @@
 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
     <div class="flex">
         {{-- <x-jet-application-logo class="block h-12 w-auto" /> --}}
-        <img src="{{url('/img/unitenlogo.png')}}" class="h-12 w-auto" />
+        <img src="{{url('/img/spacs.svg')}}" class="h-20 w-auto" />
         <div class="inline-flex items-center px-4 text-xl">
             Security Patrol Clocking System (SPaCS)
         </div>
