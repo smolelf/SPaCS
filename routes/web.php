@@ -3,6 +3,7 @@
 use App\Http\Controllers\CheckpointController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjMemberController;
 use App\Http\Controllers\User as ControllersUser;
@@ -109,6 +110,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/client', [Controller::cla
 Route::middleware(['auth:sanctum', 'verified'])->get('/checkpoint', [Controller::class, 'checkpoint'])->name('checkpoint');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/landing', [Controller::class, 'landing'])->name('landing');
+
+//Report Controller
+Route::middleware(['auth:sanctum', 'verified'])->get('/report/new', [HistoryController::class, 'newreport'])->name('report');
 
 //Search Function
 Route::middleware(['auth:sanctum', 'verified'])->post('/history/search', [Controller::class, 'htsearch'])->name('htsearch');

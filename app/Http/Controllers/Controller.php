@@ -128,6 +128,12 @@ class Controller extends BaseController
                 ->orderBy('id')
                 ->get();
             return view('public.landings.users', ['data' => $data]);
+        }else if($searchby == "phone"){
+            $data = DB::table('users')
+                ->where('phone_no', 'like', '%'.$req->input('search').'%')
+                ->orderBy('id')
+                ->get();
+            return view('public.landings.users', ['data' => $data]);
         }else if($searchby == "dept"){
             $data = DB::table('users')
                 ->where('dept', 'like', '%'.$req->input('search').'%')

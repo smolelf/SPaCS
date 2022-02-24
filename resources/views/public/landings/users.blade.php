@@ -29,6 +29,7 @@
         <select name="searchby"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
             <option value="name">Name</option>
+            <option value="phone">Phone #</option>
             <option value="dept">Department</option>
         </select>
         <x-jet-button type="submit" name="submit" class="py-3">Search</x-jet-button>
