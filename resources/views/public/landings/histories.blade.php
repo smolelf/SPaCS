@@ -13,9 +13,11 @@
         {{-- {{ __('Landing') }} --}}
         Scan Histories
     </h2>
-    {{-- <a href="{{url('/addclient')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
-        New Client
-    </a> --}}
+    @if (Auth::user()->usertype == 1)
+    <a href="{{url('/report/new')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
+        Generate report
+    </a>
+    @endif
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
     <div class="max-w-9xl mx-auto sm:px-6 lg:px-10">
