@@ -25,7 +25,7 @@
     </h2>
     <form action="{{url('/user/search')}}" style="margin-bottom: 0px;" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <x-jet-input type="text" name="search" placeholder="Search query" class="form-control"/>
+        <x-jet-input type="text" name="search" placeholder="Search query" class=""/>
         <select name="searchby"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
             <option value="name">Name</option>
@@ -45,7 +45,7 @@
                     <th>Department</th>
                     {{-- <th>Project(s) Lead</th> --}}
                     @if (Auth::user()->usertype == 1)
-                    <th colspan="2">Action</th>
+                    <th>Action</th>
                     @endif
                 </tr>
                 @foreach ($data as $data)
@@ -54,33 +54,21 @@
                     {{$count = $check->count();}} --}}
                 </div>
                 <tr>
-                    <td>{{$data->name}}</td>
+                    {{-- @if (Auth::user()->usertype == 1) --}}
+                    @if (Auth::user()->id != $data->id AND Auth::user()->usertype == 1)
+                        <td><a href="{{url('/edituser/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">{{$data->name}}</a></td>
+                    @else
+                        <td><h1 class="text-black-400">{{$data->name}}</h1></td>
+                    @endif
+                    {{-- @endif --}}
                     <td>{{$data->phone_no}}</td>
                     <td>{{$data->dept}}</td>
-                    {{-- <td>
-                    @if ($count != '[]')
-                        @if ($count > 1)
-                            {{$count}} Projects
-                        @else
-                            {{$count}} Project
-                        @endif
-                    @else
-                        N/A
-                    @endif
-                    </td> --}}
                     @if (Auth::user()->usertype == 1)
-                        @if (Auth::user()->id != $data->id)
-                            <td><a href="{{url('/edituser/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Edit</a></td>
-                        @else
-                            <td><h1 class="text-gray-400">Edit</h1></td>
-                        @endif
-                    @endif
-                    @if (Auth::user()->usertype == 1)
-                        {{-- @if ($data['usertype'] == 1 OR $count != '[]')
+                        @if (Auth::user()->id == $data->id)
                             <td><h1 class="text-gray-400">Delete</h1></td>
-                        @else --}}
+                        @else
                             <td><a href="{{url('/deluser/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
-                        {{-- @endif --}}
+                        @endif
                     @endif
                 </tr>
                 @endforeach

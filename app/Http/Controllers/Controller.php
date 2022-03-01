@@ -101,19 +101,35 @@ class Controller extends BaseController
     {
         $user = Auth::user();
         $searchby = $req->searchby;
-
-        if($searchby == 'name'){
+        $init1 = $req->search;
+        $init2 = $req->add_search;
+        if($searchby == 'cp'){
             $data = DB::table('histories')
+                ->leftJoin('users','histories.user_id','=','users.id')
+                ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
+                ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
                 ->where('cp_name', 'like', '%'.$req->input('search').'%')
-                ->orderBy('id')
+                ->orderBy('histories.id')
                 ->get();
-            return view('public.landings.histories', ['data' => $data]);
-        }else if($searchby == "desc"){
+            return view('public.landings.histories', ['data' => $data, 'searchby' => $searchby, 'init1' => $init1, 'init2' => $init2]);
+        }else if($searchby == "pic"){
             $data = DB::table('histories')
-                ->where('cp_desc', 'like', '%'.$req->input('search').'%')
-                ->orderBy('id')
+                ->leftJoin('users','histories.user_id','=','users.id')
+                ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
+                ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
+                ->where('name', 'like', '%'.$req->input('search').'%')
+                ->orderBy('histories.id')
                 ->get();
-            return view('public.landings.histories', ['data' => $data]);
+            return view('public.landings.histories', ['data' => $data, 'searchby' => $searchby, 'init1' => $init1, 'init2' => $init2]);
+        }else if($searchby == "datetime"){
+            $data = DB::table('histories')
+                ->leftJoin('users','histories.user_id','=','users.id')
+                ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
+                ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
+                ->whereBetween('histories.created_at', [$req->input('add_search'), $req->input('search')])
+                ->orderBy('histories.id')
+                ->get();
+            return view('public.landings.histories', ['data' => $data, 'searchby' => $searchby, 'init1' => $init1, 'init2' => $init2]);
         }
     }
 

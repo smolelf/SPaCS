@@ -23,34 +23,46 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+        <div class="flex flex-col min-h-screen justify-between bg-gray-100">
+            <div>
+                @livewire('navigation-menu')
+            </div>
+            <div class="items-start" style="margin-bottom: auto;">
+                <!-- Page Heading -->
+                @if (isset($header))
+                    <header class="bg-white shadow">
+                        <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                @endif
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
+                <!-- Page Heading(Search) -->
+                {{-- @if (isset($searchtitle) AND Auth::user()->usertype == 1) --}}
+                @if (isset($searchtitle))
+                    <header class="bg-white shadow">
+                        <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
+                            {{ $searchtitle }}
+                        </div>
+                        {{-- <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
+                            {{ $searchcontent }}
+                        </div> --}}
+                    </header>
+                @endif
 
-            <!-- Page Heading(Search) -->
-            @if (isset($searchtitle))
-                <header class="bg-white shadow">
-                    <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-                        {{ $searchtitle }}
-                    </div>
-                    {{-- <div class="flex justify-between sm:justify-between max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-                        {{ $searchcontent }}
-                    </div> --}}
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <!-- Page Content -->
+                <main>
+                    {{ $slot }}
+                </main>
+            </div>
+            <div class="py-6 bg-white align-bottom">
+                <span class="text-grey-300 text-base bottom-0 left-0 w-full flex justify-center align-bottom">Mohd Arsyad Bin Mohd Zaini
+                    &nbsp;&nbsp;|&nbsp;&nbsp;SW0105692 @ UNITEN&nbsp;&nbsp;|&nbsp;&nbsp;© Copyright <?php echo date("Y");?>&nbsp;&nbsp;
+                    <a href="https://imsmolelf.my" style="color:rgb(155, 132, 0);" target="blank">
+                        imsmolelf.my
+                    </a>
+                </span>
+            </div>
         </div>
 
         @stack('modals')
