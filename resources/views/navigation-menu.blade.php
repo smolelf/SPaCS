@@ -5,52 +5,80 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ url('/home') }}">
-                        {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
-                        {{-- <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" /> --}}
-                        <img src="{{url('/img/spacs2.svg')}}" class="block w-auto" style="height: 3.5rem" />
-                    </a>
+                    @auth
+                        <a href="{{ url('/home') }}">
+                            {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
+                            {{-- <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" /> --}}
+                            <img src="{{url('/img/spacs2.svg')}}" class="block w-auto" style="height: 3.5rem" />
+                        </a>
+                    @else
+                        <a href="{{ url('/') }}">
+                            {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
+                            {{-- <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" /> --}}
+                            <img src="{{url('/img/spacs2.svg')}}" class="block w-auto" style="height: 3.5rem" />
+                        </a>
+                    @endauth
                 </div>
 
                 @auth
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                        {{ __('Home') }}
-                    </x-jet-nav-link>
-                </div>
+                @if (Auth::user()->usertype == '1')
+                    <!-- Navigation Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                            {{ __('Home') }}
+                        </x-jet-nav-link>
+                    </div>
 
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('project') }}" :active="request()->routeIs('project')">
-                        {{ __('Projects') }}
-                    </x-jet-nav-link>
-                </div> --}}
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('project') }}" :active="request()->routeIs('project')">
+                            {{ __('Projects') }}
+                        </x-jet-nav-link>
+                    </div> --}}
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('history') }}" :active="request()->routeIs('history', 'htsearch', 'report')">
-                        {{ __('Histories') }}
-                    </x-jet-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('history') }}" :active="request()->routeIs('history', 'htsearch', 'report')">
+                            {{ __('Histories') }}
+                        </x-jet-nav-link>
+                    </div>
 
-                {{-- @if (Auth::user()->usertype == 1) --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('user') }}" :active="request()->routeIs('user', 'ussearch')">
-                        {{ __('Users') }}
-                    </x-jet-nav-link>
-                </div>
-                {{-- @endif --}}
+                    {{-- @if (Auth::user()->usertype == 1) --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('user') }}" :active="request()->routeIs('user', 'ussearch')">
+                            {{ __('Users') }}
+                        </x-jet-nav-link>
+                    </div>
+                    {{-- @endif --}}
 
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('client') }}" :active="request()->routeIs('client')">
-                        {{ __('Clients') }}
-                    </x-jet-nav-link>
-                </div> --}}
-                
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('checkpoint') }}" :active="request()->routeIs('checkpoint', 'cpsearch')">
-                        {{ __('Checkpoints') }}
-                    </x-jet-nav-link>
-                </div>
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('client') }}" :active="request()->routeIs('client')">
+                            {{ __('Clients') }}
+                        </x-jet-nav-link>
+                    </div> --}}
+                    
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('checkpoint') }}" :active="request()->routeIs('checkpoint', 'cpsearch')">
+                            {{ __('Checkpoints') }}
+                        </x-jet-nav-link>
+                    </div>
+                @else
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                            {{ __('Home') }}
+                        </x-jet-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('scanqr') }}" :active="request()->routeIs('scanqr')">
+                            {{ __('Scan QR') }}
+                        </x-jet-nav-link>
+                    </div>
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('mobilehistory') }}" :active="request()->routeIs('mobilehistory')">
+                            {{ __('Recent History') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endif
 
                 {{-- @if (Auth::user()->usertype == 1)
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

@@ -178,4 +178,20 @@ class Controller extends BaseController
             return view('public.landings.checkpoints', ['data' => $data]);
         }
     }
+
+    public function mobilehistory(){
+        $data = DB::table('histories')
+        ->leftJoin('users','histories.user_id','=','users.id')
+        ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
+        ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
+        ->where('histories.user_id', '=', Auth::user()->id)
+        ->orderBy('histories.id')
+        ->get();
+        return view('public.landings.mobile.histories', ['data' => $data]);
+    }
+
+    public function scanqr(){
+        return view('public.landings.mobile.scanqr');
+    }
+
 }

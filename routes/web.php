@@ -120,3 +120,8 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/history/search', [Contro
 Route::middleware(['auth:sanctum', 'verified'])->post('/user/search', [Controller::class, 'ussearch'])->name('ussearch');
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/checkpoint/search', [Controller::class, 'cpsearch'])->name('cpsearch');
+
+//Mobile View
+Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/scan', [Controller::class, 'scanqr'])->name('scanqr');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/history', [Controller::class, 'mobilehistory'])->name('mobilehistory');

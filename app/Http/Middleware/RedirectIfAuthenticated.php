@@ -20,10 +20,13 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
-
+        $usertype = isset(Auth::user()->usertype) ? Auth::user()->usertype : null;
+        echo $usertype;
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            if (Auth::guard($guard)->check() AND $usertype == '1') {
                 return redirect(RouteServiceProvider::HOME);
+            }elseif (Auth::guard($guard)->check() AND $usertype == '0') {
+                return redirect(RouteServiceProvider::MOBILE);
             }
         }
 
