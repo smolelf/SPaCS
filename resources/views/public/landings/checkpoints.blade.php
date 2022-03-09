@@ -23,11 +23,15 @@
     </h2>
     <form action="{{url('/checkpoint/search')}}" style="margin-bottom: 0px;" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <x-jet-input type="text" name="search" placeholder="Search query" class="form-control"/>
+        @if(isset($init))
+            <x-jet-input type="text" name="search" placeholder="Search query" class="" value="{{$init}}"/>
+        @else
+            <x-jet-input type="text" name="search" placeholder="Search query" class="form-control"/>
+        @endif
         <select name="searchby"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
-            <option value="name">Name</option>
-            <option value="desc">Description</option>
+            <option value="name" @if (isset($searchby) AND $searchby == 'name') selected @endif>Name</option>
+            <option value="desc" @if (isset($searchby) AND $searchby == 'desc') selected @endif>Description</option>
         </select>
         <x-jet-button type="submit" name="submit" class="py-3">Search</x-jet-button>
     </form>
@@ -39,13 +43,13 @@
                 <tr>
                     <th>Checkpoint Name</th>
                     <th>Checkpoint Desc</th>
-                    <th>Action</th>
+                    <th>Delete?</th>
                 </tr>
                 @foreach ($data as $data)
                 <tr>
-                    <td>{{$data->cp_name}}</td>
+                    <td><a href="{{url('/editcheckpoint/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">{{$data->cp_name}}</a></td>
                     <td>{{$data->cp_desc}}</td>
-                    <td><a href="{{url('/editcheckpoint/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">View Details</a></td>
+                    <td><a href="{{url('/delcp/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
                 </tr>
                 @endforeach
             </table>

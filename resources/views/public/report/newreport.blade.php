@@ -10,32 +10,45 @@
     
             <x-jet-validation-errors class="mb-4" />
     
-            <form method="POST" action="{{ url('useradd') }}">
+            <form method="POST" action="{{ url('/report/generate') }}">
                 @csrf
     
                 <div>
-                    <x-jet-label for="name" value="{{ __('Name') }}" />
-                    <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
+                    <x-jet-label for="pic" value="{{ __('Person In Charge') }}" />
+                    {{-- <x-jet-input id="pic" class="block mt-1 w-full" type="text" name="pic" required autofocus autocomplete="pic" /> --}}
+                    <select id="pic" 
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
+                    name="pic" required >
+                    <option value="">Select Person In Charge</option>
+                        @foreach ($user as $user)
+                            <option value="{{$user['id']}}">{{$user['name']}}</option>
+                        @endforeach
+                    </select>
                 </div>
     
                 <div class="mt-4">
-                    <x-jet-label for="email" value="{{ __('Email') }}" />
-                    <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" required />
+                    <x-jet-label for="cp" value="{{ __('Checkpoint') }}" />
+                    {{-- <x-jet-input id="cp" class="block mt-1 w-full" type="text" name="cp" required /> --}}
+                    <select id="cp" 
+                    class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
+                    name="cp" required >
+                        <option value="">Select Checkpoint</option>
+                        @foreach ($cp as $cp)
+                            <option value="{{$cp['id']}}">{{$cp['cp_name']}}</option>
+                        @endforeach
+                    </select>
                 </div>
     
                 <div class="mt-4">
-                    <x-jet-label for="password" value="{{ __('Password') }}" />
-                    <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required />
-                </div>
-    
-                <div class="mt-4">
-                    <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                    <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
+                    <x-jet-label for="datetime" value="Date & Time Range" />
+                    <x-jet-input id="datetimestart" class="block mt-1 w-full" type="datetime-local" name="datetimestart" required />
+                    <h6 class="my-4 text-center">to</h6>
+                    <x-jet-input id="datetimeend" class="block w-full" type="datetime-local" name="datetimeend" required />
                 </div>
     
                 <div class="flex items-center justify-end mt-4">
                     <x-jet-button class="ml-4">
-                        {{ __('Register') }}
+                        {{ __('Generate Report') }}
                     </x-jet-button>
                 </div>
             </form>

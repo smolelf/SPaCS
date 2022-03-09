@@ -96,6 +96,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/editcheckpoint/{id}', [Ch
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/updatecheckpoint', [CheckpointController::class, 'update']);
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/delcp/{id}', [CheckpointController::class, 'delcp']);
+
 //Navbar Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [Controller::class, 'home'])->name('home');
 

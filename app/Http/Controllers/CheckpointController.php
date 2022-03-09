@@ -43,4 +43,12 @@ class CheckpointController extends Controller
 
         return redirect('/checkpoint');
     }
+
+    function delcp($id){
+        $data = Checkpoint::find($id);
+
+        $data->delete();
+
+        return redirect('/checkpoint');
+    }
 }

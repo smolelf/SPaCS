@@ -99,7 +99,6 @@ class Controller extends BaseController
 
     public function htsearch(Request $req)
     {
-        $user = Auth::user();
         $searchby = $req->searchby;
         $init1 = $req->search;
         $init2 = $req->add_search;
@@ -135,47 +134,47 @@ class Controller extends BaseController
 
     public function ussearch(Request $req)
     {
-        $user = Auth::user();
         $searchby = $req->searchby;
+        $init = $req->search;
 
         if($searchby == 'name'){
             $data = DB::table('users')
                 ->where('name', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
                 ->get();
-            return view('public.landings.users', ['data' => $data]);
+            return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "phone"){
             $data = DB::table('users')
                 ->where('phone_no', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
                 ->get();
-            return view('public.landings.users', ['data' => $data]);
+            return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "dept"){
             $data = DB::table('users')
                 ->where('dept', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
                 ->get();
-            return view('public.landings.users', ['data' => $data]);
+            return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }
     }
 
     public function cpsearch(Request $req)
     {
-        $user = Auth::user();
         $searchby = $req->searchby;
+        $init = $req->search;
 
         if($searchby == 'name'){
             $data = DB::table('checkpoints')
                 ->where('cp_name', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
                 ->get();
-            return view('public.landings.checkpoints', ['data' => $data]);
+            return view('public.landings.checkpoints', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "desc"){
             $data = DB::table('checkpoints')
                 ->where('cp_desc', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
                 ->get();
-            return view('public.landings.checkpoints', ['data' => $data]);
+            return view('public.landings.checkpoints', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }
     }
 
