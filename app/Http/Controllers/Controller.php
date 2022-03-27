@@ -81,7 +81,7 @@ class Controller extends BaseController
 
     public function user(){
         $user = Auth::user();
-        $data = DB::table('users')->orderBy('id')->get();
+        $data = DB::table('users')->orderBy('id')->paginate(10);
         return view('public.landings.users', ['data' => $data]);
     }
 
@@ -141,19 +141,19 @@ class Controller extends BaseController
             $data = DB::table('users')
                 ->where('name', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
-                ->get();
+                ->paginate(10);
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "phone"){
             $data = DB::table('users')
                 ->where('phone_no', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
-                ->get();
+                ->paginate(10);
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "dept"){
             $data = DB::table('users')
                 ->where('dept', 'like', '%'.$req->input('search').'%')
                 ->orderBy('id')
-                ->get();
+                ->paginate(10);
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }
     }

@@ -52,31 +52,34 @@
                     <th>Action</th>
                     @endif
                 </tr>
-                @foreach ($data as $data)
+                @foreach ($data as $datas)
                 <div class="hidden">
                     {{-- {{$check = DB::table('projects')->where('leader', '=', $data->id)->get();}}
                     {{$count = $check->count();}} --}}
                 </div>
                 <tr>
                     {{-- @if (Auth::user()->usertype == 1) --}}
-                    @if (Auth::user()->id != $data->id AND Auth::user()->usertype == 1)
-                        <td><a href="{{url('/edituser/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">{{$data->name}}</a></td>
+                    @if (Auth::user()->id != $datas->id AND Auth::user()->usertype == 1)
+                        <td><a href="{{url('/edituser/'.$datas->id)}}" class="underline" style="color:rgb(0, 104, 122)">{{$datas->name}}</a></td>
                     @else
-                        <td><h1 class="text-black-400">{{$data->name}}</h1></td>
+                        <td><h1 class="text-black-400">{{$datas->name}}</h1></td>
                     @endif
                     {{-- @endif --}}
-                    <td>{{$data->phone_no}}</td>
-                    <td>{{$data->dept}}</td>
+                    <td>{{$datas->phone_no}}</td>
+                    <td>{{$datas->dept}}</td>
                     @if (Auth::user()->usertype == 1)
-                        @if (Auth::user()->id == $data->id)
+                        @if (Auth::user()->id == $datas->id)
                             <td><h1 class="text-gray-400">Delete</h1></td>
                         @else
-                            <td><a href="{{url('/deluser/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
+                            <td><a href="{{url('/deluser/'.$datas->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
                         @endif
                     @endif
                 </tr>
                 @endforeach
             </table>
+        </div>
+        <div class="pt-4">
+        {{$data->links()}}
         </div>
     </div>
 </div>

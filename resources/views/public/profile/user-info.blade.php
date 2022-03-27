@@ -51,6 +51,12 @@
                         <x-jet-input id="dept" type="text" class="mt-1 block w-full" name="dept" value="{{$data->dept}}" required />
                         <x-jet-input-error for="dept" class="mt-2" />
                     </div>
+
+                    {{-- <div class="col-span-6 sm:col-span-4">
+                        <x-jet-label for="dept" value="{{ __('Department') }}" />
+                        <x-jet-input id="dept" type="text" class="mt-1 block w-full" name="dept" value="{{$data->dept}}" required />
+                        <x-jet-input-error for="dept" class="mt-2" />
+                    </div> --}}
                 </div>
             </div>
             <div class="flex items-center justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 shadow sm:rounded-bl-md sm:rounded-br-md">

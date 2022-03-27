@@ -116,12 +116,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/landing', [Controller::cl
 //Report Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/report/new', [HistoryController::class, 'newreport'])->name('report');
 
+Route::middleware(['auth:sanctum', 'verified'])->get('/report/generate', [HistoryController::class, 'export'])->name('report');
+
 //Search Function
-Route::middleware(['auth:sanctum', 'verified'])->post('/history/search', [Controller::class, 'htsearch'])->name('htsearch');
+Route::middleware(['auth:sanctum', 'verified'])->any('/history/search', [Controller::class, 'htsearch'])->name('htsearch');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/user/search', [Controller::class, 'ussearch'])->name('ussearch');
+Route::middleware(['auth:sanctum', 'verified'])->any('/user/search', [Controller::class, 'ussearch'])->name('ussearch');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/checkpoint/search', [Controller::class, 'cpsearch'])->name('cpsearch');
+Route::middleware(['auth:sanctum', 'verified'])->any('/checkpoint/search', [Controller::class, 'cpsearch'])->name('cpsearch');
 
 //Mobile View
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/scan', [Controller::class, 'scanqr'])->name('scanqr');
