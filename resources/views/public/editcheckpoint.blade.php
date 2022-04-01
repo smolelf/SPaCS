@@ -38,5 +38,18 @@
                 </x-jet-button>
             </div>
         </form>
+        <form action="{{url('/delcp/'.$data->id)}}" method="GET">
+            @csrf
+            <div class="hidden">
+                <x-jet-label for="id" value="{{ __('ID Number') }}" />
+                <x-jet-input id="id" class="block mt-1 w-full" type="text" name="id" value="{{$data->id}}" required />
+            </div>
+            <div class="flex justify-end">
+                <button class="justify-end mt-4 inline-flex items-center px-4 py-2 bg-red-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"
+                onclick="return confirm('Delete {{$data->cp_name}} checkpoint ?')">
+                    Delete Checkpoint
+                </button>
+            </div>
+        </form>
     </x-jet-authentication-card>
 </x-app-layout>

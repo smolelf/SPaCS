@@ -23,10 +23,21 @@ class HistoryController extends Controller
         //return view('public.report.newreport');
     }
 
-    public function export(){
+    public function export(Request $req){
         // return Excel::download(new HistoryExport, 'cp.xlsx');
-        $pic = "";
-        $cp = "";
+
+        if($req->pic == "all"){
+            $pic = "";
+        }elseif($req->pic > 0){
+            $pic = $req->pic;
+        }
+
+        if($req->cp == "all"){
+            $cp = "";
+        }elseif($req->cp > 0){
+            $cp = $req->cp;
+        }
+
         $range= "";
         return (new HistoryExport)->pic($pic)->cp($cp)->range($range)->download('SPACS_Report.xlsx');
     }

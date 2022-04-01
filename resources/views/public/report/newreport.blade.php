@@ -10,7 +10,7 @@
     
             <x-jet-validation-errors class="mb-4" />
     
-            <form method="GET" action="{{ url('/report/generate') }}">
+            <form method="POST" action="{{ url('/report/generate') }}">
                 @csrf
     
                 <div>
@@ -19,7 +19,7 @@
                     <select id="pic" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="pic"  >
-                    <option value="">Select Person In Charge</option>
+                    <option value="all">All</option>
                         @foreach ($user as $user)
                             <option value="{{$user['id']}}">{{$user['name']}}</option>
                         @endforeach
@@ -32,7 +32,7 @@
                     <select id="cp" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="cp"  >
-                        <option value="">Select Checkpoint</option>
+                        <option value="all">All</option>
                         @foreach ($cp as $cp)
                             <option value="{{$cp['id']}}">{{$cp['cp_name']}}</option>
                         @endforeach
@@ -45,30 +45,36 @@
                     <select id="date" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="date" onchange="hide()">
-                        <option value="week">Weekly</option>
-                        <option value="biweek">Bi-Weekly</option>
+                        <option value="thisweek">This Week</option>
+                        <option value="pastweek">Past Week</option>
                         <option value="month">Monthly</option>
                         <option value="quart">Quarterly</option>
                     </select>
                 </div>
 
+                <div class="hidden">
+                    <?php
+                        $mthh = date('m');
+                        $yrrr = date('Y');
+                    ?>
+                </div>
                 <div class="mt-4" id="months" style="display: none">
                     <x-jet-label for="mth" value="{{ __('Month') }}" />
                     <select id="mth" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="mth" >
-                        <option value="jan">January</option>
-                        <option value="feb">February</option>
-                        <option value="mar">March</option>
-                        <option value="apr">April</option>
-                        <option value="may">May</option>
-                        <option value="jun">June</option>
-                        <option value="jul">July</option>
-                        <option value="aug">August</option>
-                        <option value="sep">September</option>
-                        <option value="oct">October</option>
-                        <option value="nov">November</option>
-                        <option value="dec">December</option>
+                        <option value="jan" @if($mthh == "01") selected @endif>January</option>
+                        <option value="feb" @if($mthh == "02") selected @endif>February</option>
+                        <option value="mar" @if($mthh == "03") selected @endif>March</option>
+                        <option value="apr" @if($mthh == "04") selected @endif>April</option>
+                        <option value="may" @if($mthh == "05") selected @endif>May</option>
+                        <option value="jun" @if($mthh == "06") selected @endif>June</option>
+                        <option value="jul" @if($mthh == "07") selected @endif>July</option>
+                        <option value="aug" @if($mthh == "08") selected @endif>August</option>
+                        <option value="sep" @if($mthh == "09") selected @endif>September</option>
+                        <option value="oct" @if($mthh == "10") selected @endif>October</option>
+                        <option value="nov" @if($mthh == "11") selected @endif>November</option>
+                        <option value="dec" @if($mthh == "12") selected @endif>December</option>
                     </select>
                 </div>
 
@@ -77,8 +83,8 @@
                     <select id="year" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="year" >
-                        <option value="2022">2022</option>
-                        <option value="2022">2021</option>
+                        <option value="2021" @if($yrrr == "2021") selected @endif>2021</option>
+                        <option value="2022" @if($yrrr == "2022") selected @endif>2022</option>
                     </select>
                 </div>
 
@@ -101,12 +107,14 @@
 <script type="text/javascript">
     function hide() {
         var x = document.getElementById("date").value;
+        var elmnt1 = document.getElementById("months");
+        var elmnt2 = document.getElementById("years");
         if (x == "month") {
-            document.getElementById("months").style.display= '';
-            document.getElementById("years").style.display= '';
+            elmnt1.style.display = "";
+            elmnt2.style.display = "";
         }else{
-            document.getElementById("months").style.display= 'none';
-            document.getElementById("years").style.display= 'none';
+            elmnt1.style.display = "none";
+            elmnt2.style.display = "none";
         }
     }
 </script>

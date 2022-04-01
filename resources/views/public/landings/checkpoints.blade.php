@@ -37,19 +37,19 @@
     </form>
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
-    <div class="max-w-9xl mx-auto sm:px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-10">
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-md sm:rounded-lg">
             <table>
                 <tr>
                     <th>Checkpoint Name</th>
                     <th>Checkpoint Desc</th>
-                    <th>Delete?</th>
+                    {{-- <th>Delete?</th> --}}
                 </tr>
                 @foreach ($data as $data)
                 <tr>
                     <td><a href="{{url('/editcheckpoint/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">{{$data->cp_name}}</a></td>
                     <td>{{$data->cp_desc}}</td>
-                    <td><a href="{{url('/delcp/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
+                    {{-- <td><a href="{{url('/delcp/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td> --}}
                 </tr>
                 @endforeach
             </table>

@@ -116,7 +116,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/landing', [Controller::cl
 //Report Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/report/new', [HistoryController::class, 'newreport'])->name('report');
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/report/generate', [HistoryController::class, 'export'])->name('report');
+Route::middleware(['auth:sanctum', 'verified'])->post('/report/generate', [HistoryController::class, 'export'])->name('report');
 
 //Search Function
 Route::middleware(['auth:sanctum', 'verified'])->any('/history/search', [Controller::class, 'htsearch'])->name('htsearch');

@@ -48,9 +48,9 @@
                     <th>Phone Number</th>
                     <th>Department</th>
                     {{-- <th>Project(s) Lead</th> --}}
-                    @if (Auth::user()->usertype == 1)
+                    {{-- @if (Auth::user()->usertype == 1)
                     <th>Action</th>
-                    @endif
+                    @endif --}}
                 </tr>
                 @foreach ($data as $datas)
                 <div class="hidden">
@@ -67,13 +67,13 @@
                     {{-- @endif --}}
                     <td>{{$datas->phone_no}}</td>
                     <td>{{$datas->dept}}</td>
-                    @if (Auth::user()->usertype == 1)
+                    {{-- @if (Auth::user()->usertype == 1)
                         @if (Auth::user()->id == $datas->id)
                             <td><h1 class="text-gray-400">Delete</h1></td>
                         @else
                             <td><a href="{{url('/deluser/'.$datas->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td>
                         @endif
-                    @endif
+                    @endif --}}
                 </tr>
                 @endforeach
             </table>
