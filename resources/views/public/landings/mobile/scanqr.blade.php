@@ -33,7 +33,7 @@
                 </tr>
                 @endforeach
             </table> --}}
-            <div class="top-4" style="width: 500px" id="reader"></div>
+            <div class="top-4 max-w-screen-lg" id="reader"></div>
             <form method="POST" action="{{url('/mobile/scanned')}}" id="form" style="margin-bottom: 0px">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="cp_id" id="result">
@@ -63,7 +63,7 @@
         var found = "false";
         for(let element of jsarray){
             if(element.id == decodedText){
-                alert("Found");
+                alert("Checkpoint registered!");
                 document.getElementById('result').value = element.id;
                 found = "true";
                 document.getElementById('form').submit();
@@ -71,7 +71,7 @@
             }
         }
         if (found == "false"){
-            alert("Not Found");
+            alert("Not a valid Checkpoint!");
         }
     }
 
@@ -84,7 +84,7 @@
         "reader",
         {
             fps: 60,
-            qrbox: 250,
+            qrbox: 300,
             rememberLastUsedCamera: true,
             formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
             facingMode: "environment",
