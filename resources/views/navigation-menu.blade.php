@@ -276,19 +276,19 @@
         @else
             <div class="pt-2 pb-3 space-y-1">
                 <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                    {{ __('Users') }}
+                    {{ __('Home') }}
                 </x-jet-responsive-nav-link>
             </div>
             
             <div class="pt-2 pb-3 space-y-1">
                 <x-jet-responsive-nav-link href="{{ route('scanqr') }}" :active="request()->routeIs('scanqr')">
-                    {{ __('Users') }}
+                    {{ __('Scan QR') }}
                 </x-jet-responsive-nav-link>
             </div>
 
             <div class="pt-2 pb-3 space-y-1">
                 <x-jet-responsive-nav-link href="{{ route('mobilehistory') }}" :active="request()->routeIs('mobilehistory')">
-                    {{ __('Users') }}
+                    {{ __('Recent History') }}
                 </x-jet-responsive-nav-link>
             </div>
         @endif
