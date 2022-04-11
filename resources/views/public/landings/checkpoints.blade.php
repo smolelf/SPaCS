@@ -56,4 +56,12 @@
         </div>
     </div>
 </div>
+<?php
+    // $x = \App\Models\Checkpoint::where('id', '=', '1')->where('cp_name', '=', 'Side Entrance')->get();
+    // if($x == "[]"){
+    //     echo $x." apaan dong if";
+    // }else{
+    //     echo $x." apaan dong else";
+    // }
+?>
 </x-app-layout>

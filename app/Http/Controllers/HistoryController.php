@@ -41,4 +41,15 @@ class HistoryController extends Controller
         $range= "";
         return (new HistoryExport)->pic($pic)->cp($cp)->range($range)->download('SPACS_Report.xlsx');
     }
+
+    public function regscan(Request $req){
+        $proj = new History();
+
+        $proj -> id = "0";
+        $proj -> cp_id = $req -> cp_id;
+        $proj -> user_id = $req -> user_id;
+        $proj -> save();
+
+        return redirect('/mobile/history');
+    }
 }

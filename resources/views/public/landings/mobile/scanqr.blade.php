@@ -33,26 +33,65 @@
                 </tr>
                 @endforeach
             </table> --}}
-            <script type="text/javascript" src="instascan.min.js"></script>
-            <video id="preview"></video>
-                <script type="text/javascript">
-                let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-                scanner.addListener('scan', function (content) {
-                    console.log(content);
-                });
-                Instascan.Camera.getCameras().then(function (cameras) {
-                    if (cameras.length > 0) {
-                    scanner.start(cameras[0]);
-                    } else {
-                    console.error('No cameras found.');
-                    }
-                }).catch(function (e) {
-                    console.error(e);
-                });
-                </script>
+            <div class="top-4" style="width: 500px" id="reader"></div>
+            <form method="POST" action="{{url('/mobile/scanned')}}" id="form" style="margin-bottom: 0px">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="cp_id" id="result">
+                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                {{-- <input type="submit"> --}}
+            </form>
             </body>
         </div>
-        <h1> TEST </h1>
+        {{-- <h1> TEST </h1> --}}
     </div>
 </div>
 </x-app-layout>
+<script>
+    window.onload = test();
+    
+    function test(){
+        <?php
+        ?>
+    };
+
+    function onScanSuccess(decodedText, decodedResult) {
+        <?php
+
+            $datas = json_encode($data);
+            echo "var jsarray = ". $datas . ";";
+        ?>
+        var found = "false";
+        for(let element of jsarray){
+            if(element.id == decodedText){
+                alert("Found");
+                document.getElementById('result').value = element.id;
+                found = "true";
+                document.getElementById('form').submit();
+                break;                
+            }
+        }
+        if (found == "false"){
+            alert("Not Found");
+        }
+    }
+
+    // function onScanError(errorMessage) {
+    //     // handle on error condition, with error message
+    //     alert("Error! " + errorMessage);
+    // }
+
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        {
+            fps: 60,
+            qrbox: 250,
+            rememberLastUsedCamera: true,
+            formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+            facingMode: "environment",
+            supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+        }
+    );
+
+    html5QrcodeScanner.render(onScanSuccess);
+
+</script>

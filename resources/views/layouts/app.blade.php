@@ -19,6 +19,7 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{url('js/html5-qrcode.min.js')}}"></script>
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -56,7 +57,7 @@
                 </main>
             </div>
             <div class="py-6 bg-white align-bottom">
-                <span class="text-grey-300 text-base bottom-0 left-0 w-full flex justify-center align-bottom text-lg">Mohd Arsyad Bin Mohd Zaini
+                <span class="text-grey-300 text-base bottom-0 left-0 w-full flex justify-center align-bottom">Mohd Arsyad Bin Mohd Zaini
                     &nbsp;&nbsp;|&nbsp;&nbsp;SW0105692 @ UNITEN&nbsp;&nbsp;|&nbsp;&nbsp;© Copyright <?php echo date("Y");?>&nbsp;&nbsp;
                     <a href="https://imsmolelf.my" style="color:rgb(155, 132, 0);" target="blank">
                         imsmolelf.my

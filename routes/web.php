@@ -128,4 +128,6 @@ Route::middleware(['auth:sanctum', 'verified'])->any('/checkpoint/search', [Cont
 //Mobile View
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/scan', [Controller::class, 'scanqr'])->name('scanqr');
 
+Route::middleware(['auth:sanctum', 'verified'])->any('/mobile/scanned', [HistoryController::class, 'regscan']);
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/history', [Controller::class, 'mobilehistory'])->name('mobilehistory');

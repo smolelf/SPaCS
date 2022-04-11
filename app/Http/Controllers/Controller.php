@@ -190,7 +190,8 @@ class Controller extends BaseController
     }
 
     public function scanqr(){
-        return view('public.landings.mobile.scanqr');
+        $data = DB::table('checkpoints')->get();
+        return view('public.landings.mobile.scanqr', ['data' => $data]);
     }
 
 }
