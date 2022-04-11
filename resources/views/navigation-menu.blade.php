@@ -227,52 +227,71 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
 
         @auth
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                {{ __('Home') }}
-            </x-jet-responsive-nav-link>
-        </div>
+        @if (Auth::user()->usertype == '1')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                    {{ __('Home') }}
+                </x-jet-responsive-nav-link>
+            </div>
 
-        {{-- <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('project') }}" :active="request()->routeIs('project')">
-                {{ __('Projects') }}
-            </x-jet-responsive-nav-link>
-        </div> --}}
+            {{-- <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('project') }}" :active="request()->routeIs('project')">
+                    {{ __('Projects') }}
+                </x-jet-responsive-nav-link>
+            </div> --}}
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('history') }}" :active="request()->routeIs('history', 'htsearch', 'report')">
-                {{ __('Histories') }}
-            </x-jet-responsive-nav-link>
-        </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('history') }}" :active="request()->routeIs('history', 'htsearch', 'report')">
+                    {{ __('Histories') }}
+                </x-jet-responsive-nav-link>
+            </div>
 
-        {{-- @if (Auth::user()->usertype == 1) --}}
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('user') }}" :active="request()->routeIs('user', 'ussearch')">
-                {{ __('Users') }}
-            </x-jet-responsive-nav-link>
-        </div>
-        {{-- @endif --}}
+            {{-- @if (Auth::user()->usertype == 1) --}}
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('user') }}" :active="request()->routeIs('user', 'ussearch')">
+                    {{ __('Users') }}
+                </x-jet-responsive-nav-link>
+            </div>
+            {{-- @endif --}}
 
-        {{-- <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('client') }}" :active="request()->routeIs('client')">
-                {{ __('Clients') }}
-            </x-jet-responsive-nav-link>
-        </div> --}}
+            {{-- <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('client') }}" :active="request()->routeIs('client')">
+                    {{ __('Clients') }}
+                </x-jet-responsive-nav-link>
+            </div> --}}
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('checkpoint') }}" :active="request()->routeIs('checkpoint', 'cpsearch')">
-                {{ __('Checkpoints') }}
-            </x-jet-responsive-nav-link>
-        </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('checkpoint') }}" :active="request()->routeIs('checkpoint', 'cpsearch')">
+                    {{ __('Checkpoints') }}
+                </x-jet-responsive-nav-link>
+            </div>
 
-        {{-- @if (Auth::user()->usertype == 1)
-        <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('landing') }}" :active="request()->routeIs('landing')">
-                {{ __('Test') }}
-            </x-jet-responsive-nav-link>
-        </div>
-        @endif --}}
-        
+            {{-- @if (Auth::user()->usertype == 1)
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('landing') }}" :active="request()->routeIs('landing')">
+                    {{ __('Test') }}
+                </x-jet-responsive-nav-link>
+            </div>
+            @endif --}}
+        @else
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                    {{ __('Users') }}
+                </x-jet-responsive-nav-link>
+            </div>
+            
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('scanqr') }}" :active="request()->routeIs('scanqr')">
+                    {{ __('Users') }}
+                </x-jet-responsive-nav-link>
+            </div>
+
+            <div class="pt-2 pb-3 space-y-1">
+                <x-jet-responsive-nav-link href="{{ route('mobilehistory') }}" :active="request()->routeIs('mobilehistory')">
+                    {{ __('Users') }}
+                </x-jet-responsive-nav-link>
+            </div>
+        @endif
         @else
         <div class="pt-2 pb-3 space-y-1">
             <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
