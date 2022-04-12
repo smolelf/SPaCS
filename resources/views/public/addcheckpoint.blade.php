@@ -22,10 +22,10 @@
                 <x-jet-input id="cp_desc" class="block mt-1 w-full" type="text" name="cp_desc" required />
             </div>
 
-            <div class="mt-4">
+            {{-- <div class="mt-4">
                 <x-jet-label for="cp_data" value="{{ __('Checkpoint Data') }}" />
                 <x-jet-input id="cp_data" class="block mt-1 w-full" type="text" name="cp_data" required />
-            </div>
+            </div> --}}
 
             <div class="flex items-center justify-end mt-4">
                 <x-jet-button>

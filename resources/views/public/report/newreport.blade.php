@@ -10,7 +10,7 @@
     
             <x-jet-validation-errors class="mb-4" />
     
-            <form method="POST" action="{{ url('/report/generate') }}">
+            <form method="POST" action="{{ url('/report/xport') }}">
                 @csrf
     
                 <div>
@@ -45,10 +45,10 @@
                     <select id="date" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="date" onchange="hide()">
-                        <option value="thisweek">This Week</option>
                         <option value="pastweek">Past Week</option>
+                        <option value="thisweek">This Week</option>
                         <option value="month">Monthly</option>
-                        <option value="quart">Quarterly</option>
+                        <option value="custom">Custom Range</option>
                     </select>
                 </div>
 
@@ -88,18 +88,30 @@
                     </select>
                 </div>
 
-                {{-- <div class="mt-4">
+                <div class="mt-4" id="custom" style="display: none">
                     <x-jet-label for="datetime" value="Date & Time Range" />
                     <x-jet-input id="datetimestart" class="block mt-1 w-full" type="datetime-local" name="datetimestart"  />
                     <h6 class="my-4 text-center">to</h6>
                     <x-jet-input id="datetimeend" class="block w-full" type="datetime-local" name="datetimeend"  />
-                </div> --}}
+                </div>
     
                 <div class="flex items-center justify-end mt-4">
-                    <x-jet-button class="ml-4">
-                        {{ __('Generate Report') }}
-                    </x-jet-button>
+                    <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"
+                    type="submit" name="format" value="xlsx" style="margin-right: 1rem;">
+                        Generate Report (XLSX)
+                    </button>
+                    <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"
+                    type="submit" name="format" value="pdf" style="margin-left: 1rem;"">
+                        Generate Report (PDF)
+                    </button>
                 </div>
+
+                {{-- <div class="flex items-center justify-end mt-4">
+                    <x-jet-button class="ml-4">
+                        {{ __('Generate Report (PDF)') }}
+                    </x-jet-button>
+                </div> --}}
+
             </form>
         </x-jet-authentication-card>
     </x-guest-layout>
@@ -109,12 +121,19 @@
         var x = document.getElementById("date").value;
         var elmnt1 = document.getElementById("months");
         var elmnt2 = document.getElementById("years");
+        var elmnt3 = document.getElementById("custom");
         if (x == "month") {
             elmnt1.style.display = "";
             elmnt2.style.display = "";
+            elmnt3.style.display = "none";
+        }else if(x == "custom"){
+            elmnt1.style.display = "none";
+            elmnt2.style.display = "none";
+            elmnt3.style.display = "";
         }else{
             elmnt1.style.display = "none";
             elmnt2.style.display = "none";
+            elmnt3.style.display = "none";
         }
     }
 </script>

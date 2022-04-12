@@ -46,7 +46,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Phone Number</th>
-                    <th>Department</th>
+                    {{-- <th>Department</th> --}}
                     {{-- <th>Project(s) Lead</th> --}}
                     {{-- @if (Auth::user()->usertype == 1)
                     <th>Action</th>
@@ -66,7 +66,7 @@
                     @endif
                     {{-- @endif --}}
                     <td>{{$datas->phone_no}}</td>
-                    <td>{{$datas->dept}}</td>
+                    {{-- <td>{{$datas->dept}}</td> --}}
                     {{-- @if (Auth::user()->usertype == 1)
                         @if (Auth::user()->id == $datas->id)
                             <td><h1 class="text-gray-400">Delete</h1></td>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportPdf;
+use App\Exports\ExportXlsx;
 use App\Exports\HistoryExport;
 use App\Models\Checkpoint;
 use App\Models\History;
@@ -23,7 +25,7 @@ class HistoryController extends Controller
         //return view('public.report.newreport');
     }
 
-    public function export(Request $req){
+    public function genreport(Request $req){
         // return Excel::download(new HistoryExport, 'cp.xlsx');
 
         if($req->pic == "all"){
@@ -39,7 +41,13 @@ class HistoryController extends Controller
         }
 
         $range= "";
-        return (new HistoryExport)->pic($pic)->cp($cp)->range($range)->download('SPACS_Report.xlsx');
+
+        if($req->format == "xlsx"){
+            return (new ExportXlsx)->pic($pic)->cp($cp)->range($range)->download('SPACS Report.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+        }elseif($req->format == "pdf"){
+            return (new ExportPdf)->pic($pic)->cp($cp)->range($range)->download('SPACS Report.pdf', \Maatwebsite\Excel\Excel::MPDF);
+        }
+        // return (new HistoryExport)->pic($pic)->cp($cp)->range($range)->download('SPACS_Report.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }
 
     public function regscan(Request $req){
@@ -52,4 +60,5 @@ class HistoryController extends Controller
 
         return redirect('/mobile/history');
     }
+
 }

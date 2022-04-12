@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\History;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -14,18 +15,17 @@ use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class HistoryExport implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize
-// , FromQuery, WithColumnWidths
+class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
     */
-
+    
     use Exportable;
 
     public function startCell(): string
     {
-        return 'A2';
+        return 'A3';
     }
 
     public function drawings()
@@ -35,7 +35,8 @@ class HistoryExport implements FromCollection, WithHeadings, WithStyles, WithCol
         $drawing->setDescription('This is my logo');
         $drawing->setPath(public_path('/img/spacs2.png'));
         $drawing->setHeight(100);
-        // $drawing->setCoordinates('B3');
+        $drawing->setOffsetX(50);
+        $drawing->setCoordinates('A1');
 
         return $drawing;
     }
@@ -65,17 +66,20 @@ class HistoryExport implements FromCollection, WithHeadings, WithStyles, WithCol
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('1')->getFont()->setBold(true)->setSize(20);
+        $sheet->getStyle('1')->getFont()->setSize(20)->setBold(true);
         $sheet->getStyle('1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('2')->getFont()->setBold(true);
-        $sheet->getStyle('A2:E2')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('3')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('D')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('E')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyle('3')->getFont()->setBold(true);
+        $sheet->getStyle('A3:E3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         // $sheet->getStyle('A2:E1000')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         // $sheet->getStyle('A2:E1000')->getFont()->setSize(16);
-        $sheet->mergeCells('A1:C1');
-        $sheet->getCell('A1')->setValue('Security Patrol Clocking System (SPACS)');
-        $sheet->getRowDimension('2')->setRowHeight(20);
-        $sheet->getRowDimension('2')->setRowHeight(20);
-        $sheet->setShowGridlines(false);
+        $sheet->mergeCells('A1:E1');
+        $sheet->getCell('A1')->setValue('      Security Patrol Clocking System (SPACS) Report');
+        // $sheet->getRowDimension('1')->setRowHeight(10);
+        $sheet->getRowDimension('3')->setRowHeight(20);
+        $sheet->setShowGridlines(true);
     }
 
     public function columnFormats(): array

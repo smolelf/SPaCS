@@ -62,7 +62,7 @@
         ?>
         var found = "false";
         for(let element of jsarray){
-            if(element.id == decodedText){
+            if(element.cp_data == decodedText){
                 alert("Checkpoint registered!");
                 document.getElementById('result').value = element.id;
                 found = "true";

@@ -98,6 +98,10 @@ Route::middleware(['auth:sanctum', 'verified'])->post('/updatecheckpoint', [Chec
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/delcp/{id}', [CheckpointController::class, 'delcp']);
 
+Route::middleware(['auth:sanctum', 'verified'])->post('/genqr', [CheckpointController::class, 'genqr']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/printqr/{id}', [CheckpointController::class, 'printQR']);
+
 //Navbar Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [Controller::class, 'home'])->name('home');
 
@@ -116,7 +120,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/landing', [Controller::cl
 //Report Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/report/new', [HistoryController::class, 'newreport'])->name('report');
 
-Route::middleware(['auth:sanctum', 'verified'])->post('/report/generate', [HistoryController::class, 'export'])->name('report');
+Route::middleware(['auth:sanctum', 'verified'])->post('/report/xport', [HistoryController::class, 'genreport']);
 
 //Search Function
 Route::middleware(['auth:sanctum', 'verified'])->any('/history/search', [Controller::class, 'htsearch'])->name('htsearch');
@@ -131,3 +135,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/scan', [Controller
 Route::middleware(['auth:sanctum', 'verified'])->any('/mobile/scanned', [HistoryController::class, 'regscan']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/history', [Controller::class, 'mobilehistory'])->name('mobilehistory');
+
+Route::get('/test', function () {
+    return view('public.qrprint');
+});
+
+// Route::get('qr-code-g', function () {
+//     \QrCode::size(500)
+//             ->format('png')
+//             ->generate('www.google.com', public_path('images/qrcode.png'));
+// return view('qrCode');
+// });
