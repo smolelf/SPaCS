@@ -12,10 +12,12 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithDrawings;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize
+class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -72,14 +74,28 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
         $sheet->getStyle('D')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('E')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle('5')->getFont()->setBold(true);
-        $sheet->getStyle('A5:E5')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        // $sheet->getStyle('A5:E5')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         // $sheet->getStyle('A2:E1000')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         // $sheet->getStyle('A2:E1000')->getFont()->setSize(16);
-        $sheet->mergeCells('A1:E4');
+        $sheet->mergeCells('A1:H4');
         $sheet->getCell('A1')->setValue('                       Security Patrol Clocking System (SPACS) Report');
         $sheet->getRowDimension('1')->setRowHeight(30);
         $sheet->getRowDimension('5')->setRowHeight(20);
         $sheet->setShowGridlines(false);
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $to = $event->sheet->getDelegate()->getHighestRowAndColumn();
+                $event->sheet->getStyle('A6:'.$to['column'].$to['row'])
+                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $event->sheet->getStyle('A5:E5')
+                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+                $event->sheet->getStyle('G6');
+            },
+        ];
     }
 
     public function columnFormats(): array
@@ -100,21 +116,9 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
         return $this;
     }
 
-    public function range(String $range){
-        if ($range == "week"){
-            $this->range = "wk";
-        }
-        if ($range == "biweek"){
-            $this->range = "wk";
-        }
-        if ($range == "month"){
-            $this->range = "wk";
-        }
-        if ($range == "quart"){
-            $this->range = "wk";
-        }
-
-        $this->range = $range;
+    public function range(String $start, String $end){
+        $this->start = $start;
+        $this->end = $end;
         return $this;
     }
 
@@ -149,6 +153,7 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.user_id', '=', $this->pic)
             ->where('histories.cp_id', '=', $this->cp)
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }elseif($this->pic != "" AND $this->cp == ""){
@@ -158,6 +163,7 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
             ->select('users.name','checkpoints.cp_name','checkpoints.cp_desc',
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.user_id', '=', $this->pic)
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }elseif($this->pic == "" AND $this->cp != ""){
@@ -167,6 +173,7 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
             ->select('users.name','checkpoints.cp_name','checkpoints.cp_desc',
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.cp_id', '=', $this->cp)
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }else{
@@ -175,6 +182,7 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
             ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
             ->select('users.name','checkpoints.cp_name','checkpoints.cp_desc',
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }

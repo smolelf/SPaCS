@@ -45,7 +45,7 @@
                     <select id="date" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="date" onchange="hide()">
-                        <option value="pastweek">Past Week</option>
+                        <option value="lastweek">Last Week</option>
                         <option value="thisweek">This Week</option>
                         <option value="month">Monthly</option>
                         <option value="custom">Custom Range</option>
@@ -58,23 +58,24 @@
                         $yrrr = date('Y');
                     ?>
                 </div>
+
                 <div class="mt-4" id="months" style="display: none">
-                    <x-jet-label for="mth" value="{{ __('Month') }}" />
+                    <x-jet-label for="mnth" value="{{ __('Month') }}" />
                     <select id="mth" 
                     class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" 
                     name="mth" >
-                        <option value="jan" @if($mthh == "01") selected @endif>January</option>
-                        <option value="feb" @if($mthh == "02") selected @endif>February</option>
-                        <option value="mar" @if($mthh == "03") selected @endif>March</option>
-                        <option value="apr" @if($mthh == "04") selected @endif>April</option>
+                        <option value="january" @if($mthh == "01") selected @endif>January</option>
+                        <option value="february" @if($mthh == "02") selected @endif>February</option>
+                        <option value="march" @if($mthh == "03") selected @endif>March</option>
+                        <option value="april" @if($mthh == "04") selected @endif>April</option>
                         <option value="may" @if($mthh == "05") selected @endif>May</option>
-                        <option value="jun" @if($mthh == "06") selected @endif>June</option>
-                        <option value="jul" @if($mthh == "07") selected @endif>July</option>
-                        <option value="aug" @if($mthh == "08") selected @endif>August</option>
-                        <option value="sep" @if($mthh == "09") selected @endif>September</option>
-                        <option value="oct" @if($mthh == "10") selected @endif>October</option>
-                        <option value="nov" @if($mthh == "11") selected @endif>November</option>
-                        <option value="dec" @if($mthh == "12") selected @endif>December</option>
+                        <option value="june" @if($mthh == "06") selected @endif>June</option>
+                        <option value="july" @if($mthh == "07") selected @endif>July</option>
+                        <option value="august" @if($mthh == "08") selected @endif>August</option>
+                        <option value="september" @if($mthh == "09") selected @endif>September</option>
+                        <option value="october" @if($mthh == "10") selected @endif>October</option>
+                        <option value="november" @if($mthh == "11") selected @endif>November</option>
+                        <option value="december" @if($mthh == "12") selected @endif>December</option>
                     </select>
                 </div>
 
@@ -90,9 +91,9 @@
 
                 <div class="mt-4" id="custom" style="display: none">
                     <x-jet-label for="datetime" value="Date & Time Range" />
-                    <x-jet-input id="datetimestart" class="block mt-1 w-full" type="datetime-local" name="datetimestart"  />
+                    <x-jet-input id="datetimestart" class="block mt-1 w-full" type="date" name="datetimestart"  />
                     <h6 class="my-4 text-center">to</h6>
-                    <x-jet-input id="datetimeend" class="block w-full" type="datetime-local" name="datetimeend"  />
+                    <x-jet-input id="datetimeend" class="block w-full" type="date" name="datetimeend"  />
                 </div>
     
                 <div class="flex items-center justify-end mt-4">

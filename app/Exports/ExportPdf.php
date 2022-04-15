@@ -10,12 +10,15 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithDrawings;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize
+class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize, WithColumnWidths, WithEvents
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -52,17 +55,18 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
         ];
     }
 
-    // public function columnWidths(): array
-    // {
-    //     return [
+    public function columnWidths(): array
+    {
+        return [
     //         // 'A' => 10,
     //         'A' => 50,
     //         'B' => 30,
     //         'C' => 30,
     //         'D' => 16,
     //         'E' => 16,
-    //     ];
-    // }
+            'F' => 30,
+        ];
+    }
 
     public function styles(Worksheet $sheet)
     {
@@ -72,14 +76,27 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
         $sheet->getStyle('D')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('E')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle('3')->getFont()->setBold(true);
-        $sheet->getStyle('A3:E3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        // $sheet->getStyle('A3:E3')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         // $sheet->getStyle('A2:E1000')->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
         // $sheet->getStyle('A2:E1000')->getFont()->setSize(16);
-        $sheet->mergeCells('A1:E1');
+        $sheet->mergeCells('A1:F1');
         $sheet->getCell('A1')->setValue('      Security Patrol Clocking System (SPACS) Report');
         // $sheet->getRowDimension('1')->setRowHeight(10);
         $sheet->getRowDimension('3')->setRowHeight(20);
         $sheet->setShowGridlines(true);
+    }
+
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class    => function(AfterSheet $event) {
+                $to = $event->sheet->getDelegate()->getHighestRowAndColumn();
+                $event->sheet->getStyle('A4:'.$to['column'].$to['row'])
+                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $event->sheet->getStyle('A3:E3')
+                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+            },
+        ];
     }
 
     public function columnFormats(): array
@@ -100,21 +117,9 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
         return $this;
     }
 
-    public function range(String $range){
-        if ($range == "week"){
-            $this->range = "wk";
-        }
-        if ($range == "biweek"){
-            $this->range = "wk";
-        }
-        if ($range == "month"){
-            $this->range = "wk";
-        }
-        if ($range == "quart"){
-            $this->range = "wk";
-        }
-
-        $this->range = $range;
+    public function range(String $start, String $end){
+        $this->start = $start;
+        $this->end = $end;
         return $this;
     }
 
@@ -149,6 +154,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.user_id', '=', $this->pic)
             ->where('histories.cp_id', '=', $this->cp)
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }elseif($this->pic != "" AND $this->cp == ""){
@@ -158,6 +164,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
             ->select('users.name','checkpoints.cp_name','checkpoints.cp_desc',
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.user_id', '=', $this->pic)
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }elseif($this->pic == "" AND $this->cp != ""){
@@ -167,6 +174,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
             ->select('users.name','checkpoints.cp_name','checkpoints.cp_desc',
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.cp_id', '=', $this->cp)
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }else{
@@ -175,6 +183,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
             ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
             ->select('users.name','checkpoints.cp_name','checkpoints.cp_desc',
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
+            ->whereBetween('histories.created_at', [$this->start, $this->end])
             ->orderBy('histories.id')
             ->get();
         }

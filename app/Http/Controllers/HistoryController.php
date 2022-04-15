@@ -40,12 +40,33 @@ class HistoryController extends Controller
             $cp = $req->cp;
         }
 
-        $range= "";
+        // WHERE created_at BETWEEN "2022-04-13 00:00:00" AND "2022-04-14 00:00:00"
+
+        if($req->date == "lastweek"){
+            $start = date('Y-m-d H:i:s', strtotime('monday last week'));
+            $end = date('Y-m-d H:i:s', strtotime('sunday last week'));
+        }elseif($req->date == "thisweek"){
+            $start = date('Y-m-d H:i:s', strtotime('monday this week'));
+            $end = date('Y-m-d H:i:s', strtotime('sunday this week'));
+        }elseif($req->date == "month"){
+            $month = $req->mth;
+            $year = $req->year;
+            $start = date('Y-m-d H:i:s', strtotime('first day of '.$month.' '.$year.''));
+            $end = date('Y-m-d H:i:s', strtotime('last day of '.$month.' '.$year.''));
+        }elseif($req->date == "custom"){
+            $start = $req->datetimestart;
+            $end = $req->datetimeend;
+        }
+
+        $startf = date('Y-m-d', strtotime($start));
+        $endf = date('Y-m-d', strtotime($end));
+
+        //$range= "";
 
         if($req->format == "xlsx"){
-            return (new ExportXlsx)->pic($pic)->cp($cp)->range($range)->download('SPACS Report.xlsx', \Maatwebsite\Excel\Excel::XLSX);
+            return (new ExportXlsx)->pic($pic)->cp($cp)->range($start,$end)->download('SPACS Report ('.$startf.' to '.$endf.').xlsx', \Maatwebsite\Excel\Excel::XLSX);
         }elseif($req->format == "pdf"){
-            return (new ExportPdf)->pic($pic)->cp($cp)->range($range)->download('SPACS Report.pdf', \Maatwebsite\Excel\Excel::MPDF);
+            return (new ExportPdf)->pic($pic)->cp($cp)->range($start,$end)->download('SPACS Report ('.$startf.' to '.$endf.').pdf', \Maatwebsite\Excel\Excel::MPDF);
         }
         // return (new HistoryExport)->pic($pic)->cp($cp)->range($range)->download('SPACS_Report.xlsx', \Maatwebsite\Excel\Excel::XLSX);
     }

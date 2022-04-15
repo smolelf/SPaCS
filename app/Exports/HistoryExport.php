@@ -9,12 +9,13 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class HistoryExport implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize
+class HistoryExport implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize, WithColumnWidths
 // , FromQuery, WithColumnWidths
 {
     /**
@@ -51,17 +52,18 @@ class HistoryExport implements FromCollection, WithHeadings, WithStyles, WithCol
         ];
     }
 
-    // public function columnWidths(): array
-    // {
-    //     return [
+    public function columnWidths(): array
+    {
+        return [
     //         // 'A' => 10,
     //         'A' => 50,
     //         'B' => 30,
     //         'C' => 30,
     //         'D' => 16,
     //         'E' => 16,
-    //     ];
-    // }
+            'F' => 30,
+        ];
+    }
 
     public function styles(Worksheet $sheet)
     {
