@@ -102,7 +102,11 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
                 $event->sheet->getStyle('A6:'.$to['column'].$to['row'])
                     ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 $event->sheet->getStyle('A5:E5')
-                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $event->sheet->getStyle('A6:'.$to['column'].$to['row'])
+                    ->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+                $event->sheet->getStyle('A5:E5')
+                    ->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
                 $event->sheet->getStyle('G6');
             },
         ];

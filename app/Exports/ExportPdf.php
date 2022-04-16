@@ -83,7 +83,8 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
     {
         $sheet->getStyle('1')->getFont()->setSize(20)->setBold(true);
         $sheet->getStyle('1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
-        $sheet->getStyle('3')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        // $sheet->getStyle('3')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+        $sheet->getStyle('A:C')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
         $sheet->getStyle('D')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $sheet->getStyle('E')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT);
         $sheet->getStyle('3')->getFont()->setBold(true);
@@ -93,7 +94,8 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
         $sheet->mergeCells('A1:F1');
         $sheet->getCell('A1')->setValue('      Security Patrol Clocking System (SPACS) Report');
         // $sheet->getRowDimension('1')->setRowHeight(10);
-        $sheet->getRowDimension('3')->setRowHeight(20);
+        // $sheet->getRowDimension('3')->setRowHeight(20);
+        // $sheet->getDefaultRowDimension()->setRowHeight(20);
         $sheet->setShowGridlines(true);
     }
 
@@ -102,10 +104,20 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
         return [
             AfterSheet::class    => function(AfterSheet $event) {
                 $to = $event->sheet->getDelegate()->getHighestRowAndColumn();
+                $event->sheet->getStyle('A3:E'.$to['row'])
+                    ->getAlignment()->setIndent(1);
+                for ($x = 3; $x <= $to['row']; $x++) {
+                    $event->sheet->getStyle($x)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                    $event->sheet->getRowDimension($x)->setRowHeight(20);
+                }
                 $event->sheet->getStyle('A4:'.$to['column'].$to['row'])
                     ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 $event->sheet->getStyle('A3:E3')
-                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
+                    ->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $event->sheet->getStyle('A4:'.$to['column'].$to['row'])
+                    ->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
+                $event->sheet->getStyle('A3:E3')
+                    ->getBorders()->getOutline()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK);
             },
         ];
     }
