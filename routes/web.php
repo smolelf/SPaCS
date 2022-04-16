@@ -123,11 +123,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/report/new', [HistoryCont
 Route::middleware(['auth:sanctum', 'verified'])->post('/report/xport', [HistoryController::class, 'genreport']);
 
 //Search Function
-Route::middleware(['auth:sanctum', 'verified'])->any('/history/search', [Controller::class, 'htsearch'])->name('htsearch');
+Route::middleware(['auth:sanctum', 'verified'])->get('/history/search', [Controller::class, 'htsearch'])->name('htsearch');
 
-Route::middleware(['auth:sanctum', 'verified'])->any('/user/search', [Controller::class, 'ussearch'])->name('ussearch');
+Route::middleware(['auth:sanctum', 'verified'])->get('/user/search', [Controller::class, 'ussearch'])->name('ussearch');
 
-Route::middleware(['auth:sanctum', 'verified'])->any('/checkpoint/search', [Controller::class, 'cpsearch'])->name('cpsearch');
+Route::middleware(['auth:sanctum', 'verified'])->get('/checkpoint/search', [Controller::class, 'cpsearch'])->name('cpsearch');
 
 //Mobile View
 Route::middleware(['auth:sanctum', 'verified'])->get('/mobile/scan', [Controller::class, 'scanqr'])->name('scanqr');

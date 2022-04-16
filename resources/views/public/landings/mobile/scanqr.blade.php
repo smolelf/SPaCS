@@ -33,6 +33,9 @@
                 </tr>
                 @endforeach
             </table> --}}
+            <div class="py-4 px-4 text-center">
+                <span class="text-lg font-semibold">Please allow camera permission to begin scanning QR Code</span>
+            </div>
             <div class="top-4 max-w-screen-lg" id="reader"></div>
             <form method="POST" action="{{url('/mobile/scanned')}}" id="form" style="margin-bottom: 0px">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
