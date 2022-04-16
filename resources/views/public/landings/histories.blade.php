@@ -23,18 +23,18 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{-- {{ __('User') }} --}}
     </h2>
-    <form action="{{url('/history/search')}}" style="margin-bottom: 0px;" method="POST">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <form action="{{url('/history/search')}}" style="margin-bottom: 0px;" method="GET">
+        {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
         @if(isset($init2))
-            <x-jet-input type="hidden" id="add_search" name="add_search" placeholder="Search query" value="{{$init2}}"/>
+            <x-jet-input type="hidden" id="add_search" name="q2" placeholder="Search query" value="{{$init2}}"/>
         @else
-            <x-jet-input type="hidden" id="add_search" name="add_search" placeholder="Search query"/>
+            <x-jet-input type="hidden" id="add_search" name="q2" placeholder="Search query"/>
         @endif
         <span id="to" style="display: none;" class="px-2">to</span>
         @if(isset($init1))
-            <x-jet-input type="text" id="search" name="search" placeholder="Search query" value="{{$init1}}"/>
+            <x-jet-input type="text" id="search" name="q1" placeholder="Search query" value="{{$init1}}"/>
         @else
-            <x-jet-input type="text" id="search" name="search" placeholder="Search query"/>
+            <x-jet-input type="text" id="search" name="q1" placeholder="Search query"/>
         @endif
         <select name="searchby" id="searchby"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left mt-0 sm:mt-2"
@@ -42,9 +42,8 @@
             <option value="cp" @if (isset($searchby) AND $searchby == 'cp') selected @endif>Checkpoint</option>
             <option value="pic" @if (isset($searchby) AND $searchby == 'pic') selected @endif>PIC</option>
             <option value="datetime" @if (isset($searchby) AND $searchby == 'datetime') selected @endif>Date & Time</option>
-            {{-- <option value="time">Time</option> --}}
         </select>
-        <x-jet-button type="submit" name="submit" class="py-3">Search</x-jet-button>
+        <x-jet-button type="submit" class="py-3">Search</x-jet-button>
     </form>
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
@@ -53,24 +52,22 @@
             <table>
                 <tr>
                     <th>Checkpoint Name</th>
-                    {{-- <th>Desc</th> --}}
                     <th>P.I.C.</th>
                     <th>Date</th>
                     <th>Time</th>
-                    {{-- <th>Operation</th> --}}
                 </tr>
-                @foreach ($data as $data)
+                @foreach ($data as $datas)
                 <tr>
-                    <td>{{$data->cp_name}}</td>
-                    {{-- <td>{{$data->cp_desc}}</td> --}}
-                    <td>{{$data->name}}</td>
-                    {{-- <td>{{date('l, d/m/Y', strtotime($data->created_at))}}</td> l for long day, D for short day--}}
-                    <td>{{date('d/m/Y', strtotime($data->created_at))}}</td>
-                    <td>{{date('h:i:s a', strtotime($data->created_at))}}</td>
-                    {{-- <td><a href="{{url('/edithist/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">View Details</a></td> --}}
+                    <td>{{$datas->cp_name}}</td>
+                    <td>{{$datas->name}}</td>
+                    <td>{{date('d/m/Y', strtotime($datas->created_at))}}</td>
+                    <td>{{date('h:i:s a', strtotime($datas->created_at))}}</td>
                 </tr>
                 @endforeach
             </table>
+        </div>
+        <div class="pt-4">
+            {{$data->links()}}
         </div>
     </div>
 </div>

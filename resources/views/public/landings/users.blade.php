@@ -23,12 +23,12 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{-- {{ __('User') }} --}}
     </h2>
-    <form action="{{url('/user/search')}}" style="margin-bottom: 0px;" method="POST">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <form action="{{url('/user/search')}}" style="margin-bottom: 0px;" method="GET">
+        {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
         @if(isset($init))
-            <x-jet-input type="text" name="search" placeholder="Search query" class="" value="{{$init}}"/>
+            <x-jet-input type="text" name="q" placeholder="Search query" value="{{$init}}" />
         @else
-            <x-jet-input type="text" name="search" placeholder="Search query" class=""/>
+            <x-jet-input type="text" name="q" placeholder="Search query" />
         @endif
         <select name="searchby"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
@@ -36,7 +36,7 @@
             <option value="phone" @if (isset($searchby) AND $searchby == 'phone') selected @endif>Phone #</option>
             <option value="dept" @if (isset($searchby) AND $searchby == 'dept') selected @endif>Department</option>
         </select>
-        <x-jet-button type="submit" name="submit" class="py-3">Search</x-jet-button>
+        <x-jet-button type="submit" class="py-3">Search</x-jet-button>
     </form>
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">

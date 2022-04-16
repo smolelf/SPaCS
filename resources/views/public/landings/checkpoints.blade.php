@@ -21,19 +21,19 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{-- {{ __('Checkpoints') }} --}}
     </h2>
-    <form action="{{url('/checkpoint/search')}}" style="margin-bottom: 0px;" method="POST">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <form action="{{url('/checkpoint/search')}}" style="margin-bottom: 0px;" method="GET">
+        {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
         @if(isset($init))
-            <x-jet-input type="text" name="search" placeholder="Search query" class="" value="{{$init}}"/>
+            <x-jet-input type="text" name="q" placeholder="Search query" class="" value="{{$init}}"/>
         @else
-            <x-jet-input type="text" name="search" placeholder="Search query" class="form-control"/>
+            <x-jet-input type="text" name="q" placeholder="Search query" class="form-control"/>
         @endif
         <select name="searchby"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
             <option value="name" @if (isset($searchby) AND $searchby == 'name') selected @endif>Name</option>
             <option value="desc" @if (isset($searchby) AND $searchby == 'desc') selected @endif>Description</option>
         </select>
-        <x-jet-button type="submit" name="submit" class="py-3">Search</x-jet-button>
+        <x-jet-button type="submit" class="py-3">Search</x-jet-button>
     </form>
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
@@ -45,14 +45,17 @@
                     <th>Checkpoint Desc</th>
                     {{-- <th>Delete?</th> --}}
                 </tr>
-                @foreach ($data as $data)
+                @foreach ($data as $datas)
                 <tr>
-                    <td><a href="{{url('/editcheckpoint/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">{{$data->cp_name}}</a></td>
-                    <td>{{$data->cp_desc}}</td>
+                    <td><a href="{{url('/editcheckpoint/'.$datas->id)}}" class="underline" style="color:rgb(0, 104, 122)">{{$datas->cp_name}}</a></td>
+                    <td>{{$datas->cp_desc}}</td>
                     {{-- <td><a href="{{url('/delcp/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">Delete</a></td> --}}
                 </tr>
                 @endforeach
             </table>
+        </div>
+        <div class="pt-4">
+        {{$data->links()}}
         </div>
     </div>
 </div>

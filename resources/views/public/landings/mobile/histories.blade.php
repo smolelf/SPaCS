@@ -10,8 +10,7 @@
 <x-app-layout>
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{-- {{ __('Landing') }} --}}
-        Scan Histories
+        {{ __('Scan Histories') }}
     </h2>
 </x-slot>
 <div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
@@ -21,23 +20,21 @@
                 <tr>
                     <th>Checkpoint Name</th>
                     <th>Desc</th>
-                    {{-- <th>P.I.C.</th> --}}
                     <th>Date</th>
                     <th>Time</th>
-                    {{-- <th>Operation</th> --}}
                 </tr>
-                @foreach ($data as $data)
+                @foreach ($data as $datas)
                 <tr>
-                    <td>{{$data->cp_name}}</td>
-                    <td>{{$data->cp_desc}}</td>
-                    {{-- <td>{{$data->name}}</td> --}}
-                    {{-- <td>{{date('l, d/m/Y', strtotime($data->created_at))}}</td> l for long day, D for short day--}}
-                    <td>{{date('d/m/Y', strtotime($data->created_at))}}</td>
-                    <td>{{date('h:i:s a', strtotime($data->created_at))}}</td>
-                    {{-- <td><a href="{{url('/edithist/'.$data->id)}}" class="underline" style="color:rgb(0, 104, 122)">View Details</a></td> --}}
+                    <td>{{$datas->cp_name}}</td>
+                    <td>{{$datas->cp_desc}}</td>
+                    <td>{{date('d/m/Y', strtotime($datas->created_at))}}</td> {{-- l for long day, D for short day --}}
+                    <td>{{date('h:i:s a', strtotime($datas->created_at))}}</td>
                 </tr>
                 @endforeach
             </table>
+        </div>
+        <div class="pt-4">
+            {{$data->links()}}
         </div>
     </div>
 </div>

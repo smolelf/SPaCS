@@ -75,13 +75,14 @@ class Controller extends BaseController
         ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
         ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
         ->orderBy('histories.id')
-        ->get();
+        ->paginate(10);
         return view('public.landings.histories', ['data' => $data]);
     }
 
     public function user(){
         $user = Auth::user();
         $data = DB::table('users')->orderBy('id')->paginate(10);
+        // $data = DB::table('users')->orderBy('id')->cursorPaginate(10);
         return view('public.landings.users', ['data' => $data]);
     }
 
@@ -93,41 +94,61 @@ class Controller extends BaseController
 
     public function checkpoint(){
         $user = Auth::user();
-        $data = DB::table('checkpoints')->orderBy('id')->get();
+        $data = DB::table('checkpoints')->orderBy('id')->paginate(10);
         return view('public.landings.checkpoints', ['data' => $data]);
     }
 
     public function htsearch(Request $req)
     {
         $searchby = $req->searchby;
-        $init1 = $req->search;
-        $init2 = $req->add_search;
+        $init1 = $req->q1;
+        $init2 = $req->q2;
+        
         if($searchby == 'cp'){
             $data = DB::table('histories')
                 ->leftJoin('users','histories.user_id','=','users.id')
                 ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
                 ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
-                ->where('cp_name', 'like', '%'.$req->input('search').'%')
+                ->where('cp_name', 'like', '%'.$req->input('q1').'%')
                 ->orderBy('histories.id')
-                ->get();
+                ->paginate(10);
+
+                $pagination = $data->appends ( array (
+                    'q1' => $req->input('q1') ,
+                    'searchby' => $req->input('searchby') ,
+                    ) );
+
             return view('public.landings.histories', ['data' => $data, 'searchby' => $searchby, 'init1' => $init1, 'init2' => $init2]);
         }else if($searchby == "pic"){
             $data = DB::table('histories')
                 ->leftJoin('users','histories.user_id','=','users.id')
                 ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
                 ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
-                ->where('name', 'like', '%'.$req->input('search').'%')
+                ->where('name', 'like', '%'.$req->input('q1').'%')
                 ->orderBy('histories.id')
-                ->get();
+                ->paginate(10);
+
+                $pagination = $data->appends ( array (
+                    'q1' => $req->input('q1') ,
+                    'searchby' => $req->input('searchby') ,
+                    ) );
+
             return view('public.landings.histories', ['data' => $data, 'searchby' => $searchby, 'init1' => $init1, 'init2' => $init2]);
         }else if($searchby == "datetime"){
             $data = DB::table('histories')
                 ->leftJoin('users','histories.user_id','=','users.id')
                 ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
                 ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
-                ->whereBetween('histories.created_at', [$req->input('add_search'), $req->input('search')])
+                ->whereBetween('histories.created_at', [$req->input('q2'), $req->input('q1')])
                 ->orderBy('histories.id')
-                ->get();
+                ->paginate(10);
+
+                $pagination = $data->appends ( array (
+                    'q1' => $req->input('q1') ,
+                    'q2' => $req->input('q2') ,
+                    'searchby' => $req->input('searchby') ,
+                    ) );
+
             return view('public.landings.histories', ['data' => $data, 'searchby' => $searchby, 'init1' => $init1, 'init2' => $init2]);
         }
     }
@@ -135,25 +156,43 @@ class Controller extends BaseController
     public function ussearch(Request $req)
     {
         $searchby = $req->searchby;
-        $init = $req->search;
-
+        $init = $req->q;
+        
         if($searchby == 'name'){
             $data = DB::table('users')
-                ->where('name', 'like', '%'.$req->input('search').'%')
+                ->where('name', 'like', '%'.$req->input('q').'%')
                 ->orderBy('id')
                 ->paginate(10);
+
+            $pagination = $data->appends ( array (
+                'q' => $req->input('q') ,
+                'searchby' => $req->input('searchby') ,
+                ) );
+            
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "phone"){
             $data = DB::table('users')
-                ->where('phone_no', 'like', '%'.$req->input('search').'%')
+                ->where('phone_no', 'like', '%'.$req->input('q').'%')
                 ->orderBy('id')
                 ->paginate(10);
+
+            $pagination = $data->appends ( array (
+                'q' => $req->input('q') ,
+                'searchby' => $req->input('searchby') ,
+                ) );
+
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "dept"){
             $data = DB::table('users')
-                ->where('dept', 'like', '%'.$req->input('search').'%')
+                ->where('dept', 'like', '%'.$req->input('q').'%')
                 ->orderBy('id')
                 ->paginate(10);
+
+            $pagination = $data->appends ( array (
+                'q' => $req->input('q') ,
+                'searchby' => $req->input('searchby') ,
+                ) );
+
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }
     }
@@ -161,19 +200,31 @@ class Controller extends BaseController
     public function cpsearch(Request $req)
     {
         $searchby = $req->searchby;
-        $init = $req->search;
+        $init = $req->q;
 
         if($searchby == 'name'){
             $data = DB::table('checkpoints')
-                ->where('cp_name', 'like', '%'.$req->input('search').'%')
+                ->where('cp_name', 'like', '%'.$req->input('q').'%')
                 ->orderBy('id')
-                ->get();
+                ->paginate(10);
+
+            $pagination = $data->appends ( array (
+                'q' => $req->input('q') ,
+                'searchby' => $req->input('searchby') ,
+                ) );
+
             return view('public.landings.checkpoints', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "desc"){
             $data = DB::table('checkpoints')
-                ->where('cp_desc', 'like', '%'.$req->input('search').'%')
+                ->where('cp_desc', 'like', '%'.$req->input('q').'%')
                 ->orderBy('id')
-                ->get();
+                ->paginate(10);
+
+            $pagination = $data->appends ( array (
+                'q' => $req->input('q') ,
+                'searchby' => $req->input('searchby') ,
+                ) );
+
             return view('public.landings.checkpoints', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }
     }
@@ -185,7 +236,7 @@ class Controller extends BaseController
         ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
         ->where('histories.user_id', '=', Auth::user()->id)
         ->orderBy('histories.id')
-        ->get();
+        ->paginate(10);
         return view('public.landings.mobile.histories', ['data' => $data]);
     }
 
