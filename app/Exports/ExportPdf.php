@@ -14,17 +14,27 @@ use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithProperties;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize, WithColumnWidths, WithEvents
+class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting,
+    WithDrawings, WithCustomStartCell, ShouldAutoSize, WithColumnWidths,
+    WithEvents, WithProperties
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     
     use Exportable;
+
+    public function properties(): array
+    {
+        return [
+            'title' => 'SPaCS Report',
+        ];
+    }
 
     public function startCell(): string
     {
@@ -44,7 +54,8 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
         return $drawing;
     }
 
-    public function headings(): array{
+    public function headings(): array
+    {
         return [
             // 'History ID',
             'Guards Name',

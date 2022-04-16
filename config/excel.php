@@ -60,7 +60,7 @@ return [
         |
         */
         'properties'             => [
-            'creator'        => '',
+            'creator'        => 'Arsyad Z.',
             'lastModifiedBy' => '',
             'title'          => '',
             'description'    => '',

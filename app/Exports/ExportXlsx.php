@@ -13,17 +13,27 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithProperties;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting, WithDrawings, WithCustomStartCell, ShouldAutoSize, WithEvents
+class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumnFormatting,
+    WithDrawings, WithCustomStartCell, ShouldAutoSize, WithEvents,
+    WithProperties
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     
     use Exportable;
+
+    public function properties(): array
+    {
+        return [
+            'title' => 'SPaCS Report',
+        ];
+    }
 
     public function startCell(): string
     {
@@ -121,17 +131,6 @@ class ExportXlsx implements FromCollection, WithHeadings, WithStyles, WithColumn
         $this->end = $end;
         return $this;
     }
-
-    // public function collection()
-    // {
-    //     return DB::table('histories')
-    //     ->leftJoin('users','histories.user_id','=','users.id')
-    //     ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
-    //     ->select('histories.id','users.name','checkpoints.cp_name','checkpoints.cp_desc',
-    //         DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
-    //     ->orderBy('histories.id')
-    //     ->get();
-    // }
 
     public function collection()
     {
