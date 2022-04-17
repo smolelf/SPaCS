@@ -81,7 +81,7 @@ class Controller extends BaseController
 
     public function user(){
         $user = Auth::user();
-        $data = DB::table('users')->orderBy('id')->paginate(10);
+        $data = DB::table('users')->where('deleted', '=', 0)->orderBy('id')->paginate(10);
         // $data = DB::table('users')->orderBy('id')->cursorPaginate(10);
         return view('public.landings.users', ['data' => $data]);
     }
@@ -94,7 +94,7 @@ class Controller extends BaseController
 
     public function checkpoint(){
         $user = Auth::user();
-        $data = DB::table('checkpoints')->orderBy('id')->paginate(10);
+        $data = DB::table('checkpoints')->where('deleted', '=', 0)->orderBy('id')->paginate(10);
         return view('public.landings.checkpoints', ['data' => $data]);
     }
 
@@ -161,6 +161,7 @@ class Controller extends BaseController
         if($searchby == 'name'){
             $data = DB::table('users')
                 ->where('name', 'like', '%'.$req->input('q').'%')
+                ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
 
@@ -173,6 +174,7 @@ class Controller extends BaseController
         }else if($searchby == "phone"){
             $data = DB::table('users')
                 ->where('phone_no', 'like', '%'.$req->input('q').'%')
+                ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
 
@@ -185,6 +187,7 @@ class Controller extends BaseController
         }else if($searchby == "dept"){
             $data = DB::table('users')
                 ->where('dept', 'like', '%'.$req->input('q').'%')
+                ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
 
@@ -205,6 +208,7 @@ class Controller extends BaseController
         if($searchby == 'name'){
             $data = DB::table('checkpoints')
                 ->where('cp_name', 'like', '%'.$req->input('q').'%')
+                ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
 
@@ -217,6 +221,7 @@ class Controller extends BaseController
         }else if($searchby == "desc"){
             $data = DB::table('checkpoints')
                 ->where('cp_desc', 'like', '%'.$req->input('q').'%')
+                ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
 

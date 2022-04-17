@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User as ModelsUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Controller
@@ -69,7 +70,11 @@ class User extends Controller
     function deluser($id){
         $data = ModelsUser::find($id);
 
-        $data->delete();
+        $hpw = Hash::make("$=+Acc0unTD3l3t3D*/-");
+
+        $data->password = $hpw;
+        $data->deleted = 1;
+        $data->save();
 
         return redirect('/user');
     }
@@ -146,5 +151,22 @@ class User extends Controller
         $data->save();
 
         return redirect('/user');
+    }
+
+    public function restuserlist(){
+        $data = DB::table('users')->where('deleted', '=', 1)->orderBy('id')->paginate(10);
+        // $data = DB::table('users')->orderBy('id')->cursorPaginate(10);
+        return view('public.landings.restoreuser', ['data' => $data]);
+    }
+
+    public function restuser($id){
+        $data = ModelsUser::find($id);
+
+        $data->password = Hash::make('12345678');
+        $data->deleted = 0;
+        
+        $data->save();
+
+        return redirect('/restuser');
     }
 }

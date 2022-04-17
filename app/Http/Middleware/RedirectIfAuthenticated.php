@@ -21,12 +21,15 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
         $usertype = isset(Auth::user()->usertype) ? Auth::user()->usertype : null;
-        echo $usertype;
+        $deleted = isset(Auth::user()->deleted) ? Auth::user()->deleted : null;
+        // echo $usertype;
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check() AND $usertype == '1') {
-                return redirect(RouteServiceProvider::HOME);
-            }elseif (Auth::guard($guard)->check() AND $usertype == '0') {
-                return redirect(RouteServiceProvider::MOBILE);
+            if (Auth::guard($guard)->check() && $deleted == '1') {
+                if (Auth::guard($guard)->check() && $usertype == '1') {
+                    return redirect(RouteServiceProvider::HOME);
+                }elseif (Auth::guard($guard)->check() && $usertype == '0') {
+                    return redirect(RouteServiceProvider::MOBILE);
+                }
             }
         }
 

@@ -66,9 +66,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/edituser/{id}', [Controll
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/updateuser', [ControllersUser::class, 'update']);
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/deluser/{id}', [ControllersUser::class, 'deluser']);
+Route::middleware(['auth:sanctum', 'verified'])->get('/deluser/{id}', [ControllersUser::class, 'deluser']); //soft delete implemented
 
 Route::middleware(['auth:sanctum', 'verified'])->post('/resetpw', [ControllersUser::class, 'resetpw']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/restuser', [ControllersUser::class, 'restuserlist'])->name('usrestore');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/restus/{id}', [ControllersUser::class, 'restuser']);
 
 //User Controller (User Profile)
 
@@ -101,6 +105,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/delcp/{id}', [CheckpointC
 Route::middleware(['auth:sanctum', 'verified'])->post('/genqr', [CheckpointController::class, 'genqr']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/printqr/{id}', [CheckpointController::class, 'printQR']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/restcp', [CheckpointController::class, 'restcplist'])->name('cprestore');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/restcp/{id}', [CheckpointController::class, 'restcp']);
 
 //Navbar Controller
 Route::middleware(['auth:sanctum', 'verified'])->get('/home', [Controller::class, 'home'])->name('home');

@@ -11,8 +11,10 @@
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ __('Checkpoints') }}
-        {{-- Checkpoints --}}
     </h2>
+    <a href="{{url('/restcp')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
+        Restore Checkpoint
+    </a>
     <a href="{{url('/addcheckpoint')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
         New Checkpoint
     </a>

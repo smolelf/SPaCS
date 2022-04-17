@@ -6,6 +6,8 @@ use App\Models\Checkpoint;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 // use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class CheckpointController extends Controller
@@ -50,7 +52,9 @@ class CheckpointController extends Controller
     function delcp($id){
         $data = Checkpoint::find($id);
 
-        $data->delete();
+        $data->deleted = 1;
+
+        $data->save();
 
         return redirect('/checkpoint');
     }
@@ -73,5 +77,21 @@ class CheckpointController extends Controller
         
         // return $pdf->download('Checkpoint - '.$data->cp_name.' ('.$data->cp_desc.').pdf');
         return view('public.qrprint', compact('data'));
+    }
+
+    public function restcplist(){
+        $data = DB::table('checkpoints')->where('deleted', '=', 1)->orderBy('id')->paginate(10);
+        // $data = DB::table('users')->orderBy('id')->cursorPaginate(10);
+        return view('public.landings.restorecp', ['data' => $data]);
+    }
+
+    public function restcp($id){
+        $data = Checkpoint::find($id);
+
+        $data->deleted = 0;
+        
+        $data->save();
+
+        return redirect('/restcp');
     }
 }

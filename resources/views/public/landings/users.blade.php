@@ -14,6 +14,9 @@
         Users
     </div>
     @if (Auth::user()->usertype == 1)
+    <a href="{{url('/restuser')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
+        Restore User
+    </a>
     <a href="{{url('/adduser')}}" class="text-gray-500 hover:text-gray-900 text-right text-l sm:text-right sm:ml-0">
         New User
     </a>
