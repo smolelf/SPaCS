@@ -13,12 +13,14 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+        <link rel="stylesheet" href="{{ url('css/app.css') }}">
 
         @livewireStyles
 
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
+        {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
+        <script src="{{ url('js/app.js') }}" defer></script>
         <script src="{{url('js/html5-qrcode.min.js')}}"></script>
     </head>
     <body class="font-sans antialiased">
@@ -60,7 +62,7 @@
                 <span class="text-grey-300 text-base bottom-0 left-0 w-full flex justify-center align-bottom">Arsyad Zaini 
                     (SW0105692) | ©
                     <a href="https://imsmolelf.my" style="color:rgb(155, 132, 0);" target="blank">
-                        &nbsp; imsmolelf.my
+                        &nbsp;imsmolelf.my
                     </a>
                 </span>
             </div>

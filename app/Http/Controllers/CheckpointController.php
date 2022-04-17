@@ -24,7 +24,8 @@ class CheckpointController extends Controller
         $checkpoint -> id = "0";
         $checkpoint -> cp_name = $req -> cp_name;
         $checkpoint -> cp_desc = $req -> cp_desc;
-        //$checkpoint -> cp_data = $req -> cp_data;
+        $checkpoint -> deleted = 0;
+
         $checkpoint -> save();
 
         return redirect('/checkpoint');

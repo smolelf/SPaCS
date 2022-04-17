@@ -246,7 +246,7 @@ class Controller extends BaseController
     }
 
     public function scanqr(){
-        $data = DB::table('checkpoints')->get();
+        $data = DB::table('checkpoints')->where('deleted', '=', 0)->get();
         return view('public.landings.mobile.scanqr', ['data' => $data]);
     }
 

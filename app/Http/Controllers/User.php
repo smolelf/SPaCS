@@ -42,6 +42,7 @@ class User extends Controller
         $client -> name = $req -> name;
         $client -> email = $req -> email;
         $client -> password = $hpw;
+        $client -> deleted = 0;
         $client -> save();
 
         return redirect('/user');
@@ -164,7 +165,7 @@ class User extends Controller
 
         $data->password = Hash::make('12345678');
         $data->deleted = 0;
-        
+
         $data->save();
 
         return redirect('/restuser');
