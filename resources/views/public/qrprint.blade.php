@@ -17,7 +17,7 @@
         
     }
 </style>
-<div style="display: flex;  vertical-align: middle; align-self: baseline; width: 99%; height: 100%;
+<div style="display: flex;  vertical-align: middle; align-self: baseline; width: 100%; height: 99%;
 flex-direction: column; justify-content: center; align-items: center; border-style:double">
     <div style="display: flex;  vertical-align: middle; align-items: center; flex-direction: column;">
         <img src="{{url('/img/spacs2.svg')}}" style="height:14rem"/>
