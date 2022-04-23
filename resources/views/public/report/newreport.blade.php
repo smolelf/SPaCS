@@ -140,6 +140,6 @@
 </script>
 @else
 <script type="text/javascript">
-    window.location = "{{ url('/user') }}";
+    window.location = "{{ url('/') }}";
 </script>
 @endauth

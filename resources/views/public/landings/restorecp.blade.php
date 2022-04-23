@@ -7,6 +7,12 @@
         border-radius: 0.5rem;
     }
 </style>
+@if (Auth::user()->usertype == 1)
+@else
+<script type="text/javascript">
+    window.location = "{{ url('/') }}"
+</script>
+@endif
 <x-app-layout>
 <x-slot name="header">
     <div class="text-left sm:text-left font-semibold text-xl text-gray-800">

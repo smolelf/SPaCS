@@ -1,3 +1,9 @@
+@if (Auth::user()->usertype == 1)
+@else
+<script type="text/javascript">
+    window.location = "{{ url('/') }}"
+</script>
+@endif
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">

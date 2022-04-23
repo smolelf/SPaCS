@@ -1,3 +1,9 @@
+@if (Auth::user()->usertype == 1)
+@else
+<script type="text/javascript">
+    window.location = "{{ url('/') }}"
+</script>
+@endif
 <style>
     span {
         font-family: Roboto;
