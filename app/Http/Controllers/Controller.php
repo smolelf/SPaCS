@@ -74,7 +74,7 @@ class Controller extends BaseController
         ->leftJoin('users','histories.user_id','=','users.id')
         ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
         ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
-        ->orderBy('histories.id')
+        ->orderBy('histories.created_at', 'desc')
         ->paginate(10);
         return view('public.landings.histories', ['data' => $data]);
     }
@@ -110,7 +110,7 @@ class Controller extends BaseController
                 ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
                 ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
                 ->where('cp_name', 'like', '%'.$req->input('q1').'%')
-                ->orderBy('histories.id')
+                ->orderBy('histories.created_at', 'desc')
                 ->paginate(10);
 
                 $pagination = $data->appends ( array (
@@ -125,7 +125,7 @@ class Controller extends BaseController
                 ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
                 ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
                 ->where('name', 'like', '%'.$req->input('q1').'%')
-                ->orderBy('histories.id')
+                ->orderBy('histories.created_at', 'desc')
                 ->paginate(10);
 
                 $pagination = $data->appends ( array (
@@ -140,7 +140,7 @@ class Controller extends BaseController
                 ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
                 ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
                 ->whereBetween('histories.created_at', [$req->input('q2'), $req->input('q1')])
-                ->orderBy('histories.id')
+                ->orderBy('histories.created_at', 'desc')
                 ->paginate(10);
 
                 $pagination = $data->appends ( array (
@@ -240,7 +240,7 @@ class Controller extends BaseController
         ->leftJoin('checkpoints','histories.cp_id','=','checkpoints.id')
         ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
         ->where('histories.user_id', '=', Auth::user()->id)
-        ->orderBy('histories.id')
+        ->orderBy('histories.created_at', 'desc')
         ->paginate(10);
         return view('public.landings.mobile.histories', ['data' => $data]);
     }

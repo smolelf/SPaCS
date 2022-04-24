@@ -178,7 +178,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
             ->where('histories.user_id', '=', $this->pic)
             ->where('histories.cp_id', '=', $this->cp)
             ->whereBetween('histories.created_at', [$this->start, $this->end])
-            ->orderBy('histories.id')
+            ->orderBy('histories.created_at', 'desc')
             ->get();
         }elseif($this->pic != "" AND $this->cp == ""){
             return DB::table('histories')
@@ -188,7 +188,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.user_id', '=', $this->pic)
             ->whereBetween('histories.created_at', [$this->start, $this->end])
-            ->orderBy('histories.id')
+            ->orderBy('histories.created_at', 'desc')
             ->get();
         }elseif($this->pic == "" AND $this->cp != ""){
             return DB::table('histories')
@@ -198,7 +198,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->where('histories.cp_id', '=', $this->cp)
             ->whereBetween('histories.created_at', [$this->start, $this->end])
-            ->orderBy('histories.id')
+            ->orderBy('histories.created_at', 'desc')
             ->get();
         }else{
             return DB::table('histories')
@@ -207,7 +207,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
             ->select('users.name','checkpoints.cp_name','checkpoints.cp_desc',
                 DB::raw('date_format(histories.created_at, "%e/%m/%Y") AS datee'),DB::raw('time_format(histories.created_at, "%h:%i:%s %p") AS timee'))
             ->whereBetween('histories.created_at', [$this->start, $this->end])
-            ->orderBy('histories.id')
+            ->orderBy('histories.created_at', 'desc')
             ->get();
         }
     }
