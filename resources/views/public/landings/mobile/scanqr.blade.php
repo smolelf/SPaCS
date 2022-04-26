@@ -90,7 +90,7 @@
             qrbox: 300,
             rememberLastUsedCamera: true,
             formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
-            facingMode: "environment",
+            facingMode: { exact: "environment"},
             supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
         }
     );
