@@ -19,14 +19,14 @@
             <table>
                 <tr>
                     <th>Checkpoint Name</th>
-                    <th>Desc</th>
+                    {{-- <th>Desc</th> --}}
                     <th>Date</th>
                     <th>Time</th>
                 </tr>
                 @foreach ($data as $datas)
                 <tr>
                     <td>{{$datas->cp_name}}</td>
-                    <td>{{$datas->cp_desc}}</td>
+                    {{-- <td>{{$datas->cp_desc}}</td> --}}
                     <td>{{date('d/m/Y', strtotime($datas->created_at))}}</td> {{-- l for long day, D for short day --}}
                     <td>{{date('h:i:s a', strtotime($datas->created_at))}}</td>
                 </tr>
