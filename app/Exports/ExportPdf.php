@@ -102,7 +102,7 @@ class ExportPdf implements FromCollection, WithHeadings, WithStyles, WithColumnF
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class    => function(AfterSheet $event) {
+            AfterSheet::class => function(AfterSheet $event) {
                 $to = $event->sheet->getDelegate()->getHighestRowAndColumn();
                 $event->sheet->getStyle('A3:E'.$to['row'])
                     ->getAlignment()->setIndent(1);

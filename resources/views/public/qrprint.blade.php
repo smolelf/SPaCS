@@ -32,7 +32,8 @@ flex-direction: column; justify-content: center; align-items: center; border-sty
         <span style="font-size: 1.5rem;">{{$data->cp_desc}}</span>
         <br><br>
         <span style="margin-bottom: 1rem; padding: 1rem; border-style:solid;">
-            {{ QrCode::size(400)->gradient(0,0,0,99,81,207,'diagonal')->generate($data->cp_data); }}
+            {{ QrCode::size(400)->generate($data->cp_data); }}
+            {{-- {{ QrCode::size(400)->gradient(0,0,0,99,81,207,'diagonal')->generate($data->cp_data); }} --}}
         </span>
     </div>
     <div style="">
@@ -40,7 +41,7 @@ flex-direction: column; justify-content: center; align-items: center; border-sty
             style="padding-right: 0.5rem">
             Print QR Code
         </button>
-        <button onclick="history.back()" style="padding-left: 0.5rem">
+        <button onclick="location.href = '{{url('/editcheckpoint/'.$data->id)}}';" style="padding-left: 0.5rem">
             Go Back
         </button>
     </div>
