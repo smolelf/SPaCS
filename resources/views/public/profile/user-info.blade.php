@@ -46,11 +46,14 @@
                     </div>
 
                     <!-- Department -->
-                    <div class="col-span-6 sm:col-span-4">
-                        <x-jet-label for="dept" value="{{ __('Department') }}" />
-                        <x-jet-input id="dept" type="text" class="mt-1 block w-full" name="dept" value="{{$data->dept}}" required />
-                        <x-jet-input-error for="dept" class="mt-2" />
-                    </div>
+                    @if (Auth::user()->usertype == '0')
+                        <div class="col-span-6 sm:col-span-4">
+                            <x-jet-label for="status1" value="{{ __('Status') }}" />
+                            <x-jet-input id="status1" type="text" class="mt-1 block w-full text-gray-400" name="status1" value="{{$data->status}}" disabled/>
+                            <x-jet-input-error for="status1" class="mt-2" />
+                        </div>
+                        <input id="status" type="hidden" class="mt-1 block w-full" name="status" value="{{$data->status}}" required />
+                    @endif
 
                     {{-- <div class="col-span-6 sm:col-span-4">
                         <x-jet-label for="dept" value="{{ __('Department') }}" />

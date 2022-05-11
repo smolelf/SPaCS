@@ -43,7 +43,7 @@
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
             <option value="name" @if (isset($searchby) AND $searchby == 'name') selected @endif>Name</option>
             <option value="phone" @if (isset($searchby) AND $searchby == 'phone') selected @endif>Phone #</option>
-            {{-- <option value="dept" @if (isset($searchby) AND $searchby == 'dept') selected @endif>Department</option> --}}
+            <option value="status" @if (isset($searchby) AND $searchby == 'status') selected @endif>Status</option>
         </select>
         <x-jet-button type="submit" class="py-3">Search</x-jet-button>
     </form>
@@ -55,7 +55,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Phone Number</th>
-                    {{-- <th>Department</th> --}}
+                    <th>Status</th>
                     {{-- <th>Project(s) Lead</th> --}}
                     {{-- @if (Auth::user()->usertype == 1)
                     <th>Action</th>
@@ -75,7 +75,13 @@
                     @endif
                     {{-- @endif --}}
                     <td>{{$datas->phone_no}}</td>
-                    {{-- <td>{{$datas->dept}}</td> --}}
+                    <td>
+                        @if ($datas->usertype == "0")
+                            {{$datas->status}}
+                        @else
+                            N/A
+                        @endif
+                    </td>
                     {{-- @if (Auth::user()->usertype == 1)
                         @if (Auth::user()->id == $datas->id)
                             <td><h1 class="text-gray-400">Delete</h1></td>

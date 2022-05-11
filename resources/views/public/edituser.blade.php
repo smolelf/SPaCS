@@ -33,13 +33,23 @@
                 <x-jet-input id="phone_no" class="block mt-1 w-full" type="text" name="phone_no" value="{{$data['phone_no']}}" />
             </div>
 
-            <div class="mt-4">
-                <x-jet-label for="dept" value="{{ __('Department') }}" />
-                <x-jet-input id="dept" class="block mt-1 w-full" type="text" name="dept" value="{{$data['dept']}}" />
-            </div>
+            @if ($data['usertype'] != "1")
+                <div class="mt-4">
+                    <x-jet-label for="status" value="{{ __('Status') }}" />
+                    <select id="status" 
+                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full text-left" 
+                            name="status" >
+                        @if ($data['status'] == null)
+                            <option>Please select</option>
+                        @endif
+                        <option value="Permanent" @if ($data->status == "Permanent") selected @endif>Permanent</option>
+                        <option value="Temporary" @if ($data->status == "Temporary") selected @endif>Temporary</option>
+                    </select>
+                </div>
+            @endif
 
             <div class="mt-4">
-                <x-jet-label for="usertype" value="{{ __('Admin/Project Manager') }}" />
+                <x-jet-label for="usertype" value="{{ __('Administrator Account?') }}" />
                 <select id="usertype" 
                         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full text-left" 
                         name="usertype" >

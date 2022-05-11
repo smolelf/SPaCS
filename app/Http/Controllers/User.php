@@ -42,6 +42,7 @@ class User extends Controller
         $client -> name = $req -> name;
         $client -> email = $req -> email;
         $client -> password = $hpw;
+        $client -> usertype = 0;
         $client -> deleted = 0;
         $client -> save();
 
@@ -60,8 +61,12 @@ class User extends Controller
         $data->name = $req->name;
         $data->email = $req->email;
         $data->phone_no = $req->phone_no;
-        $data->dept = $req->dept;
         $data->usertype = $req->usertype;
+        if ($req->usertype == "0"){
+            $data->status = $req->status;
+        }else{
+            $data->status = null;
+        }
 
         $data->save();
 
@@ -103,7 +108,7 @@ class User extends Controller
         $data->name = $req->name;
         $data->email = $req->email;
         $data->phone_no = $req->phone_no;
-        $data->dept = $req->dept;
+        //$data->status = $req->status;
 
         $data->save();
 

@@ -22,7 +22,7 @@
                     <x-jet-label for="email" value="{{ __('Email') }}" />
                     <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" required />
                 </div>
-    
+                
                 <div class="mt-4">
                     <x-jet-label for="password" value="{{ __('Password') }}" />
                     <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required />
@@ -33,6 +33,26 @@
                     <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
                 </div>
     
+                {{-- <div class="mt-4">
+                    <x-jet-label for="password_confirmation" value="{{ __('Status') }}" />
+                    <select id="usertype" 
+                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full text-left" 
+                            name="usertype" >
+                        <option value="Permanent">Permanent</option>
+                        <option value="Temporary">Temporary</option>
+                    </select>
+                </div> --}}
+
+                {{-- <div class="mt-4">
+                    <x-jet-label for="password_confirmation" value="{{ __('Administrator?') }}" />
+                    <select id="usertype" 
+                            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm w-full text-left" 
+                            name="usertype" >
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div> --}}
+
                 <div class="flex items-center justify-end mt-4">
                     <x-jet-button class="ml-4">
                         {{ __('Register') }}

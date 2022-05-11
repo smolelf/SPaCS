@@ -184,9 +184,9 @@ class Controller extends BaseController
                 ) );
 
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
-        }else if($searchby == "dept"){
+        }else if($searchby == "status"){
             $data = DB::table('users')
-                ->where('dept', 'like', '%'.$req->input('q').'%')
+                ->where('status', 'like', '%'.$req->input('q').'%')
                 ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
