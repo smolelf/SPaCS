@@ -56,12 +56,25 @@ class User extends Controller
     }
 
     public function update(Request $req){
+        $chk_email = ModelsUser::where('email', '=', $req -> email)
+                            ->wherenotin('id', [$req -> id])
+                            ->first();
         $data = ModelsUser::find($req->id);
+        $msg_e = null;
+
+        if ($chk_email != null){
+            $msg_e = "Email existed!";
+        }
+
+        if ($msg_e != null){
+            return back()->withErrors(['email' => $msg_e]);
+        }
 
         $data->name = $req->name;
         $data->email = $req->email;
         $data->phone_no = $req->phone_no;
         $data->usertype = $req->usertype;
+
         if ($req->usertype == "0"){
             $data->status = $req->status;
         }else{
