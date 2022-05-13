@@ -34,12 +34,31 @@
     </h2>
     <form action="{{url('/user/search')}}" style="margin-bottom: 0px;" method="GET">
         {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
-        @if(isset($init))
-            <x-jet-input type="text" name="q" placeholder="Search query" value="{{$init}}" />
+        @if(isset($init) || isset($inits))
+            @if(isset($inits))
+                <select name="qs" id="status"
+                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
+                    <option value="Permanent" @if ($inits == 'Permanent') selected @endif>Permanent</option>
+                    <option value="Temporary" @if ($inits == 'Temporary') selected @endif>Temporary</option>
+                </select>
+                <x-jet-input type="text" id="q" name="q" placeholder="Search query"/>
+            @else
+                <select name="qs" id="status"
+                class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
+                    <option value="Permanent">Permanent</option>
+                    <option value="Temporary">Temporary</option>
+                </select>
+                <x-jet-input type="text" id="q" name="q" placeholder="Search query" value="{{$init}}" />
+            @endif
         @else
-            <x-jet-input type="text" name="q" placeholder="Search query" />
+            <select name="qs" id="status"
+            class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
+                <option value="Permanent">Permanent</option>
+                <option value="Temporary">Temporary</option>
+            </select>
+            <x-jet-input type="text" id="q" name="q" placeholder="Search query" />
         @endif
-        <select name="searchby"
+        <select name="searchby" id="searchby" onchange="add_opt()"
         class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm text-left" >
             <option value="name" @if (isset($searchby) AND $searchby == 'name') selected @endif>Name</option>
             <option value="phone" @if (isset($searchby) AND $searchby == 'phone') selected @endif>Phone Number</option>
@@ -99,6 +118,29 @@
     </div>
 </div>
 </x-app-layout>
+<script>
+    window.onload = load();
+    function load(){
+        var x = document.getElementById("searchby").value;
+        if (x == "status") {
+            document.getElementById("status").style.display= '';
+            document.getElementById("q").style.display= 'none';
+        }else{
+            document.getElementById("status").style.display= 'none';
+            document.getElementById("q").style.display= '';
+        }
+    }
+    function add_opt() {
+        var x = document.getElementById("searchby").value;
+        if (x == "status") {
+            document.getElementById("status").style.display= '';
+            document.getElementById("q").style.display= 'none';
+        }else{
+            document.getElementById("status").style.display= 'none';
+            document.getElementById("q").style.display= '';
+        }
+    }
+</script>
             {{-- // ->leftJoin('users','projects.leader','=','users.id')
             // ->leftJoin('proj_statuses','projects.proj_status','=','proj_statuses.id')
             // ->leftJoin('proj_stages','projects.proj_stage','=','proj_stages.id')

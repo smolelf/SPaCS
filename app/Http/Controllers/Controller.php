@@ -157,10 +157,11 @@ class Controller extends BaseController
     {
         $searchby = $req->searchby;
         $init = $req->q;
+        $inits = $req->qs;
         
         if($searchby == 'name'){
             $data = DB::table('users')
-                ->where('name', 'like', '%'.$req->input('q').'%')
+                ->where('name', 'like', '%'.$req->q.'%')
                 ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
@@ -173,7 +174,7 @@ class Controller extends BaseController
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "phone"){
             $data = DB::table('users')
-                ->where('phone_no', 'like', '%'.$req->input('q').'%')
+                ->where('phone_no', 'like', '%'.$req->q.'%')
                 ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
@@ -186,17 +187,17 @@ class Controller extends BaseController
             return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
         }else if($searchby == "status"){
             $data = DB::table('users')
-                ->where('status', 'like', '%'.$req->input('q').'%')
+                ->where('status', '=', $req->qs)
                 ->where('deleted', '=', 0)
                 ->orderBy('id')
                 ->paginate(10);
 
             $pagination = $data->appends ( array (
-                'q' => $req->input('q') ,
+                'qs' => $req->input('qs') ,
                 'searchby' => $req->input('searchby') ,
                 ) );
 
-            return view('public.landings.users', ['data' => $data, 'init' => $init, 'searchby' => $searchby]);
+            return view('public.landings.users', ['data' => $data, 'inits' => $inits, 'searchby' => $searchby]);
         }
     }
 

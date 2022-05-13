@@ -132,7 +132,7 @@ class User extends Controller
         $data = ModelsUser::find($req->id);
 
         $cpw = $req -> cpw;             // Current PW
-        $pw_db = $data -> password;     //Current PW from DB
+        $pw_db = $data -> password;     // Current PW from DB
         $pw = $req -> pw;               // New PW
         $cfpw = $req -> cfpw;           // Confirm PW
 
@@ -141,11 +141,11 @@ class User extends Controller
 
         if (Hash::check($cpw,$pw_db)){
         }else{
-            $msg_pw = "Current password not match!";
+            $msg_pw = "Current password does not match!";
         }
 
         if ($pw != $cfpw){
-            $msg_cfpw = "New Password not match!";
+            $msg_cfpw = "New Password does not match!";
         }
 
         if ($msg_pw != null OR $msg_cfpw != null){
