@@ -6,11 +6,19 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     @auth
-                        <a href="{{ url('/home') }}">
-                            {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
-                            {{-- <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" /> --}}
-                            <img src="{{url('/img/spacs2.svg')}}" class="block w-auto" style="height: 3.5rem" />
-                        </a>
+                        @if (Auth::user()->usertype == '1')
+                            <a href="{{ url('/home') }}">
+                                {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
+                                {{-- <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" /> --}}
+                                <img src="{{url('/img/spacs2.svg')}}" class="block w-auto" style="height: 3.5rem" />
+                            </a>
+                        @else
+                            <a href="{{ url('/mobile/scan') }}">
+                                {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
+                                {{-- <img src="{{url('/img/spacs.svg')}}" class="block h-12 w-auto" /> --}}
+                                <img src="{{url('/img/spacs2.svg')}}" class="block w-auto" style="height: 3.5rem" />
+                            </a>
+                        @endif
                     @else
                         <a href="{{ url('/') }}">
                             {{-- <x-jet-application-mark class="block h-9 w-auto" /> --}}
@@ -61,11 +69,11 @@
                         </x-jet-nav-link>
                     </div>
                 @else
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                             {{ __('Home') }}
                         </x-jet-nav-link>
-                    </div>
+                    </div> --}}
 
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('scanqr') }}" :active="request()->routeIs('scanqr')">
@@ -274,11 +282,11 @@
             </div>
             @endif --}}
         @else
-            <div class="pt-2 pb-3 space-y-1">
+            {{-- <div class="pt-2 pb-3 space-y-1">
                 <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                     {{ __('Home') }}
                 </x-jet-responsive-nav-link>
-            </div>
+            </div> --}}
             
             <div class="pt-2 pb-3 space-y-1">
                 <x-jet-responsive-nav-link href="{{ route('scanqr') }}" :active="request()->routeIs('scanqr')">

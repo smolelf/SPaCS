@@ -31,7 +31,7 @@
                     </script>
                 @else
                     <script type="text/javascript">
-                        window.location = "{{ url('/mobile/history') }}"
+                        window.location = "{{ url('/mobile/scan') }}"
                     </script>
                 @endif
             @endauth
