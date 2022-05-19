@@ -61,6 +61,9 @@ class HistoryController extends Controller
         $startf = date('Y-m-d', strtotime($start));
         $endf = date('Y-m-d', strtotime($end));
 
+        $start = $startf.' 00:00:00';
+        $end = $endf.' 23:59:59';
+
         //$range= "";
 
         if($req->format == "xlsx"){
