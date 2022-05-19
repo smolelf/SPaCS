@@ -75,6 +75,9 @@ class HistoryController extends Controller
     }
 
     public function regscan(Request $req){
+
+        $msg = "Checkpoint registered!";
+
         $proj = new History();
 
         $proj -> id = "0";
@@ -82,7 +85,8 @@ class HistoryController extends Controller
         $proj -> user_id = $req -> user_id;
         $proj -> save();
 
-        return redirect('/mobile/history');
+        return redirect('/mobile/history')->with('msg', $msg);
+        //return view('public.report.newreport', ['msg' => $msg]);
     }
 
 }

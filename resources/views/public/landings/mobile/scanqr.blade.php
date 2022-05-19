@@ -66,7 +66,8 @@
         var found = "false";
         for(let element of jsarray){
             if(element.cp_data == decodedText){
-                alert("Checkpoint registered!");
+                html5QrcodeScanner.clear();
+                // alert("Valid checkpoint!");
                 document.getElementById('result').value = element.id;
                 found = "true";
                 document.getElementById('form').submit();

@@ -8,13 +8,19 @@
     }
 </style>
 <x-app-layout>
+    <div class="hidden">
+        {{$msg = session()->get('msg')}}
+    </div>
 <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ __('Scan Histories') }}
     </h2>
 </x-slot>
-<div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center py-10">
-    <div class="max-w-9xl mx-auto sm:px-6 lg:px-10">
+<div class="relative flex items-top justify-center bg-gray-100 dark:bg-gray-900 sm:items-center">
+    <div class="max-w-9xl mx-auto sm:px-6 lg:px-10 py-2">
+        <div class="text-center static py-2">
+            {{$msg}}
+        </div>
         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-md sm:rounded-lg">
             <table>
                 <tr>
