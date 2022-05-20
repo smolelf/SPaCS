@@ -76,7 +76,11 @@ class User extends Controller
         $data->usertype = $req->usertype;
 
         if ($req->usertype == "0"){
-            $data->status = $req->status;
+            if ($req->status == null){
+                $data->status = null;
+            }else{
+                $data->status = $req->status;
+            }
         }else{
             $data->status = null;
         }

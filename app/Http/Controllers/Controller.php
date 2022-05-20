@@ -192,10 +192,10 @@ class Controller extends BaseController
                 ->orderBy('id')
                 ->paginate(10);
 
-            $pagination = $data->appends ( array (
-                'qs' => $req->input('qs') ,
-                'searchby' => $req->input('searchby') ,
-                ) );
+            // $pagination = $data->appends ( array (
+            //     'qs' => $req->input('qs') ,
+            //     'searchby' => $req->input('searchby') ,
+            //     ) );
 
             return view('public.landings.users', ['data' => $data, 'inits' => $inits, 'searchby' => $searchby]);
         }
@@ -242,6 +242,7 @@ class Controller extends BaseController
         ->select('histories.*','users.name','checkpoints.cp_name','checkpoints.cp_desc')
         ->where('histories.user_id', '=', Auth::user()->id)
         ->orderBy('histories.created_at', 'desc')
+        ->limit(20)
         ->paginate(10);
         return view('public.landings.mobile.histories', ['data' => $data]);
     }

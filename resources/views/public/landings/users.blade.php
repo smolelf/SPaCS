@@ -95,10 +95,12 @@
                     {{-- @endif --}}
                     <td>{{$datas->phone_no}}</td>
                     <td>
-                        @if ($datas->usertype == "0")
+                        @if ($datas->status != null)
                             {{$datas->status}}
-                        @else
+                        @elseif ($datas->usertype == "1")
                             N/A
+                        @else
+                            Not set
                         @endif
                     </td>
                     {{-- @if (Auth::user()->usertype == 1)
