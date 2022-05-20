@@ -36,6 +36,7 @@
                         <x-jet-label for="pw" value="{{ __('New Password') }}" />
                         <x-jet-input id="pw" type="password" class="mt-1 block w-full" name="pw" required />
                         <x-jet-input-error for="pw" class="mt-2" />
+                        <x-jet-input-error for="pwl" class="mt-2" />
                     </div>
 
                     <!-- Confirm Password -->

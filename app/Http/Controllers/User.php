@@ -25,6 +25,7 @@ class User extends Controller
         $hpw = Hash::make($pw);
         $msg_e = null;
         $msg_p = null;
+        $msg_pl = null;
 
         if ($chk_email != null){
             $msg_e = "Email existed!";
@@ -34,8 +35,12 @@ class User extends Controller
             $msg_p = "Password mismatch!";
         }
 
+        if (strlen($pw) < 8){
+            $msg_pl = "Password must be at least 8 characters!";
+        }
+
         if ($msg_p != null OR $msg_e != null){
-            return back()->withErrors(['password' => $msg_p, 'email' => $msg_e]);
+            return back()->withErrors(['password' => $msg_p, 'email' => $msg_e, 'length' => $msg_pl]);
         }
 
         $client -> id = "0";
@@ -60,7 +65,9 @@ class User extends Controller
                             ->wherenotin('id', [$req -> id])
                             ->first();
         $data = ModelsUser::find($req->id);
-        $msg_e = null;
+        $msg_e = null;      //Email ERROR
+        $msg_pwm = null;    //Password mismatch ERROR
+        $msg_pwl = null;    //Password ERROR
 
         if ($chk_email != null){
             $msg_e = "Email existed!";
@@ -69,6 +76,8 @@ class User extends Controller
         if ($msg_e != null){
             return back()->withErrors(['email' => $msg_e]);
         }
+
+
 
         $data->name = $req->name;
         $data->email = $req->email;
@@ -142,6 +151,7 @@ class User extends Controller
 
         $msg_pw = null;         // Error: Wrong PW
         $msg_cfpw = null;       // Error: New PW not same
+        $msg_pwl = null;         // Error: PW Length
 
         if (Hash::check($cpw,$pw_db)){
         }else{
@@ -152,9 +162,13 @@ class User extends Controller
             $msg_cfpw = "New Password does not match!";
         }
 
-        if ($msg_pw != null OR $msg_cfpw != null){
+        if (strlen($pw) < 8){
+            $msg_pwl = "Password must be at least 8 characters!";
+        }
+
+        if ($msg_pw != null OR $msg_cfpw != null OR $msg_pwl != null){
             return back()
-            ->withErrors(['cpw' => $msg_pw, 'pw' => $msg_cfpw]);
+            ->withErrors(['cpw' => $msg_pw, 'pw' => $msg_cfpw, 'pwl' => $msg_pwl]);
         }
 
         $hpw = Hash::make($pw);
