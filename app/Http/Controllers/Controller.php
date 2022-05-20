@@ -192,10 +192,10 @@ class Controller extends BaseController
                 ->orderBy('id')
                 ->paginate(10);
 
-            // $pagination = $data->appends ( array (
-            //     'qs' => $req->input('qs') ,
-            //     'searchby' => $req->input('searchby') ,
-            //     ) );
+            $pagination = $data->appends ( array (
+                'qs' => $req->input('qs') ,
+                'searchby' => $req->input('searchby') ,
+                ) );
 
             return view('public.landings.users', ['data' => $data, 'inits' => $inits, 'searchby' => $searchby]);
         }
